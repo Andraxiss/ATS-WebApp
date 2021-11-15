@@ -1,0 +1,35 @@
+<h1 class="username">{{getUserName()}}</h1>
+<div class="profile">
+    <div class="sub-profile">
+        <h2>Identité</h2>
+        <form *ngIf="userForm" [formGroup]="userForm">
+            <div class="input-with-label">
+                <label for="prenom">Prénom</label>
+                <input autocomplete="off" type="text" formControlName="prenom" name="prenom">
+            </div>
+            <div class="input-with-label">
+                <label for="nom">Nom</label>
+                <input autocomplete="off" type="text" formControlName="nom" name="nom">
+            </div>
+            <div class="input-with-label">
+                <label for="email">Email</label>
+                <input autocomplete="off" type="text" formControlName="email" name="email">
+            </div>
+        </form>
+
+    </div>
+
+    <div class="sub-profile">
+        <h2>Authorisations</h2>
+        <form>
+            <div class="input-with-label">
+                <label for="prenom">Rôles</label>
+                <input autocomplete="off" type="text" formControlName="prenom" name="prenom">
+            </div>
+            <div class="input-with-label">
+                <label for="nom">Entreprise</label>
+                <input autocomplete="off" type="text" formControlName="nom" name="nom">
+            </div>
+        </form>
+    </div>
+</div>
