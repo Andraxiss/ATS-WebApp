@@ -1,0 +1,14 @@
+<div *ngIf="loginForm" class="container">
+    <div class="connect">Se connecter...</div>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+        <div class="input-with-label input-override">
+            <label for="email">Email</label>
+            <input autocomplete="off" type="text" formControlName="email" name="email">
+        </div>
+        <div class="input-with-label input-override">
+            <label for="password">Mot de passe</label>
+            <input type="password" formControlName="password" name="password">
+        </div>
+        <button type="submit" class="login btn-primary">Se connecter</button>
+    </form>
+</div>

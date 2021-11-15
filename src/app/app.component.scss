@@ -1,0 +1,32 @@
+@import '../variables/colors.scss';
+@import '../variables/theme.scss';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    //background-color: red;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    margin: 20px;
+    border-radius: 15px;
+    background: $white;
+    box-shadow: $main-box-shadow;
+
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-shadow: $secondary-box-shadow;
+    background: $white;
+    margin: 15px;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: auto;
+}

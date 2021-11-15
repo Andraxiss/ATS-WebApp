@@ -1,0 +1,36 @@
+@import "../../../variables/colors.scss";
+@import "../../../variables/theme.scss";
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-shadow: $secondary-box-shadow;
+    background: $white;
+    margin: 15px;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
+.container {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .connect {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .input-override {
+        width: 300px;
+    }
+
+    .login-form{
+        display: flex;
+        flex-direction: column;
+    }
+}
