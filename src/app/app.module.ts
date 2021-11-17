@@ -18,6 +18,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileComponent } from './modules/Back-office/profile/profile.component';
 import { AdministrationComponent } from './modules/Back-office/administration/administration.component';
 import {DropdownModule} from 'primeng/dropdown';
+import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
+import {MenuItem} from 'primeng/api'; 
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import {DropdownModule} from 'primeng/dropdown';
     BrowserAnimationsModule,
     NgSelectModule,
     DropdownModule,
+    AccordionModule,
     ToastrModule.forRoot()
   ],
   exports:[
