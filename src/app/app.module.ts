@@ -14,12 +14,12 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CapteurValueComponent } from './modules/Buisiness-Intelligence/capteur-value/capteur-value.component';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileComponent } from './modules/Back-office/profile/profile.component';
 import { AdministrationComponent } from './modules/Back-office/administration/administration.component';
-import {DropdownModule} from 'primeng/dropdown';
-import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
-import {MenuItem} from 'primeng/api'; 
+import { NgSelectModule } from '@ng-select/ng-select';
+import { DropdownModule } from 'primeng/dropdown';
+
+
 
 @NgModule({
   declarations: [
@@ -35,19 +35,15 @@ import {MenuItem} from 'primeng/api';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
-    FormsModule,
     BrowserAnimationsModule,
     NgSelectModule,
+    AppRoutingModule,
     DropdownModule,
-    AccordionModule,
     ToastrModule.forRoot()
   ],
-  exports:[
-    NgSelectModule,
-    DropdownModule
+  exports: [
   ],
   providers: [RoleGuard, IsSignedInGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
