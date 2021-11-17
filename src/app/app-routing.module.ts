@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent, canActivate: [RoleGuard] },
   { path: "login", canActivate: [IsSignedInGuard], component: LoginComponent },
   {
-    path: "capteurs-value",
+    path: "machine/:id/capteurs-value",
     canActivate: [RoleGuard],
     component: CapteurValueComponent,
   },
