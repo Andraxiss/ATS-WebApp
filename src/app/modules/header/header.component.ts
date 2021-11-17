@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
-import { faCog, faHdd, faHome, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faHdd, faHome, faSignOutAlt, faUser, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   //declaration icons
   faHome = faHome;
-  faCog = faCog;
+  faAdmin = faUserShield;
   faHdd = faHdd;
   faSignOut = faSignOutAlt;
   faUser = faUser;

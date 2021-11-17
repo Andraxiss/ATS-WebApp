@@ -1,19 +1,22 @@
-<h1 class="username">{{getUserName()}}</h1>
-<div class="profile">
+<h1 *ngIf="currentUser" class="username">{{getUserName()}}</h1>
+<div *ngIf="currentUser" class="profile">
     <div class="sub-profile">
         <h2>Identité</h2>
-        <form *ngIf="userForm" [formGroup]="userForm">
+        <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="submit()">
             <div class="input-with-label">
-                <label for="prenom">Prénom</label>
+                <label for="prenom">Prénom*</label>
                 <input autocomplete="off" type="text" formControlName="prenom" name="prenom">
             </div>
             <div class="input-with-label">
-                <label for="nom">Nom</label>
+                <label for="nom">Nom*</label>
                 <input autocomplete="off" type="text" formControlName="nom" name="nom">
             </div>
             <div class="input-with-label">
-                <label for="email">Email</label>
-                <input autocomplete="off" type="text" formControlName="email" name="email">
+                <label for="email">Email*</label>
+                <input autocomplete="off" [value]="currentUser.email" type="text" readonly="true" name="email">
+            </div>
+            <div class="button-submit">
+                <button type="submit" class="btn-primary">Modifier</button>
             </div>
         </form>
 
@@ -21,15 +24,15 @@
 
     <div class="sub-profile">
         <h2>Authorisations</h2>
-        <form>
             <div class="input-with-label">
-                <label for="prenom">Rôles</label>
-                <input autocomplete="off" type="text" formControlName="prenom" name="prenom">
+                <label for="roles">Rôles</label>
+                <div class="roles" *ngFor="let role of currentUser.roles">
+                    <div class="role">{{role.nom | lowercase}}</div>
+                </div>
             </div>
             <div class="input-with-label">
-                <label for="nom">Entreprise</label>
-                <input autocomplete="off" type="text" formControlName="nom" name="nom">
+                <label for="entreprise">Entreprise</label>
+                <input readonly="true" name="entreprise">
             </div>
-        </form>
     </div>
 </div>

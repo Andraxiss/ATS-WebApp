@@ -18,9 +18,9 @@
     <fa-icon [icon]="faUser"></fa-icon>
     <a routerLink="/profile">Profil</a>
   </div>
-  <div class="route">
-    <fa-icon [icon]="faCog"></fa-icon>
-    <a>Paramètres</a>
+  <div [ngClass]="{ focused: currentRoute === 'admin' }" class="route">
+    <fa-icon [icon]="faAdmin"></fa-icon>
+    <a routerLink="/admin">Administration</a>
   </div>
 </div>
 

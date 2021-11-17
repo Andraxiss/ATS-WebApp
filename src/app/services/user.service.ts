@@ -3,6 +3,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { UserDto } from '../models/UserDto';
+import { UserApiService } from './API/user-api.service';
 
 const jwtHelper = new JwtHelperService();
 
@@ -13,10 +14,13 @@ export class UserService {
 
   private $currentUser: BehaviorSubject<UserDto> = new BehaviorSubject<UserDto>({});
   private isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  constructor(private toastr : ToastrService) {
-    if(localStorage.getItem('currentUser')){
+  constructor(private toastr: ToastrService, private userApiService: UserApiService) {
+    if (localStorage.getItem('currentUser')) {
       const currentUser = JSON.parse(localStorage.getItem('currentUser')!) as UserDto;
-      this.setCurrentUser(currentUser);
+      const id = Number(currentUser.userId!);
+      this.userApiService.getUserById(id).subscribe(user => {
+        this.setCurrentUser(user);
+      }, err => console.log(err))
     }
   }
 
@@ -27,6 +31,17 @@ export class UserService {
     if (token) {
       return !jwtHelper.isTokenExpired(token);
     } else return false;
+  }
+
+  public updateCurrentUser(user: UserDto) {
+    this.userApiService.updateUser(user).subscribe(e => {
+      this.toastr.success('Modification enregistrée.', 'Mise à jour réussie !');
+      this.setCurrentUser(e);
+      localStorage.removeItem('currentUser');
+      localStorage.setItem('currentUser', JSON.stringify(e))
+    }, err => {
+      console.log(err);
+    })
   }
 
 

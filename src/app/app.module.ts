@@ -11,10 +11,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleGuard } from './guard/role.guard';
 import { IsSignedInGuard } from './guard/isSignedGuard';
 import { AuthInterceptor } from './helpers/auth.interceptor';
-import { ProfileComponent } from './modules/Back-office/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CapteurValueComponent } from './modules/Buisiness-Intelligence/capteur-value/capteur-value.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ProfileComponent } from './modules/Back-office/profile/profile.component';
+import { AdministrationComponent } from './modules/Back-office/administration/administration.component';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -22,8 +25,9 @@ import { CapteurValueComponent } from './modules/Buisiness-Intelligence/capteur-
     LoginComponent,
     HomeComponent,
     HeaderComponent,
+    CapteurValueComponent,
     ProfileComponent,
-    CapteurValueComponent
+    AdministrationComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,13 @@ import { CapteurValueComponent } from './modules/Buisiness-Intelligence/capteur-
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    NgSelectModule,
+    DropdownModule,
     ToastrModule.forRoot()
+  ],
+  exports:[
+    NgSelectModule,
+    DropdownModule
   ],
   providers: [RoleGuard, IsSignedInGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
