@@ -1,25 +1,29 @@
-<div class="logo">
-</div>
+<div class="logo"></div>
 
 <div class="routes">
-    <div [ngClass]="{ 'focused' : currentRoute ==='home' || currentRoute ==='' }" class="route">
-        <fa-icon [icon]="faHome"></fa-icon>
-        <a routerLink='/'>Accueil</a>
-    </div>
-    <div  class="route">
-        <fa-icon [icon]="faHdd"></fa-icon>
-        <a>Machines</a>
-    </div>
-    <div [ngClass]="{ 'focused' : currentRoute ==='profile' }" class="route">
-        <fa-icon [icon]="faUser"></fa-icon>
-        <a routerLink='/profile'>Profil</a>
-    </div>
-    <div class="route">
-        <fa-icon [icon]="faCog"></fa-icon>
-        <a>Paramètres</a>
-    </div>
+  <div
+    [ngClass]="{ focused: currentRoute === 'home' || currentRoute === '' }"
+    class="route"
+  >
+    <fa-icon [icon]="faHome"></fa-icon>
+    <a routerLink="/">Accueil</a>
+  </div>
+  <div class="route">
+    <fa-icon [icon]="faHdd"></fa-icon>
+    <a routerLink="/capteurs-value" routerLinkActive="router-link-active"
+      >Machines</a
+    >
+  </div>
+  <div [ngClass]="{ focused: currentRoute === 'profile' }" class="route">
+    <fa-icon [icon]="faUser"></fa-icon>
+    <a routerLink="/profile">Profil</a>
+  </div>
+  <div class="route">
+    <fa-icon [icon]="faCog"></fa-icon>
+    <a>Paramètres</a>
+  </div>
 </div>
 
 <div (click)="logout()" title="Déconnexion" routerLink="/login" class="signout">
-    <fa-icon [icon]="faSignOut"></fa-icon>
+  <fa-icon [icon]="faSignOut"></fa-icon>
 </div>

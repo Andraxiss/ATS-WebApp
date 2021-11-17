@@ -14,6 +14,7 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { ProfileComponent } from './modules/Back-office/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { CapteurValueComponent } from './modules/Buisiness-Intelligence/capteur-value/capteur-value.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     HomeComponent,
     HeaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    CapteurValueComponent
   ],
   imports: [
     BrowserModule,
