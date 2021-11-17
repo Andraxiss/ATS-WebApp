@@ -15,6 +15,7 @@ import { ProfileComponent } from "./modules/Back-office/profile/profile.componen
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
+import { CapteurChartComponent } from './modules/Buisiness-Intelligence/capteur-chart/capteur-chart.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-
     HeaderComponent,
     ProfileComponent,
     CapteurValueComponent,
+    CapteurChartComponent,
   ],
   imports: [
     BrowserModule,
