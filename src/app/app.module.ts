@@ -1,6 +1,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSliderModule } from "@angular/material/slider";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -15,6 +16,7 @@ import { HomeComponent } from "./modules/Back-office/home/home.component";
 import { ProfileComponent } from "./modules/Back-office/profile/profile.component";
 import { CapteurChartComponent } from "./modules/Buisiness-Intelligence/capteur-chart/capteur-chart.component";
 import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
+import { MatTestComponent } from "./modules/Buisiness-Intelligence/mat-test/mat-test.component";
 import { HeaderComponent } from "./modules/header/header.component";
 import { LoginComponent } from "./modules/login/login.component";
 @NgModule({
@@ -26,6 +28,7 @@ import { LoginComponent } from "./modules/login/login.component";
     ProfileComponent,
     CapteurValueComponent,
     CapteurChartComponent,
+    MatTestComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { LoginComponent } from "./modules/login/login.component";
     BrowserAnimationsModule,
     ChartModule,
     ToastrModule.forRoot(),
+    MatSliderModule,
   ],
   providers: [
     RoleGuard,
