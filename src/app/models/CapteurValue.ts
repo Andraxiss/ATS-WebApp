@@ -1,10 +1,9 @@
-import { Timestamp } from "rxjs/internal/operators/timestamp";
 import { Capteur } from "./Capteur";
 
 export interface CapteurValue {
-  capteurValueId: number;
-  capteurValue: DoubleRange;
-  machineId: number;
-  dateReleve: Date;
+  capteur_value_id: number;
+  capteur_value: DoubleRange;
+  machine_id: number;
+  date_releve: Date;
   capteur: Capteur;
 }

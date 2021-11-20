@@ -1,10 +1,9 @@
-import { Timestamp } from "rxjs/internal/operators/timestamp";
 import { Capteur } from "./Capteur";
 
 export interface CapteurValueBoolean {
-  capteurValueId: number;
-  capteurBooleanValue: boolean;
-  machineId: number;
-  dateReleve: Date;
+  capteur_value_id: number;
+  capteur_boolean_value: boolean;
+  machine_id: number;
+  date_releve: Date;
   capteur: Capteur;
 }

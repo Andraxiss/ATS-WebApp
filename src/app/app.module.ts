@@ -1,7 +1,10 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatSliderModule } from "@angular/material/slider";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -15,8 +18,9 @@ import { AuthInterceptor } from "./helpers/auth.interceptor";
 import { HomeComponent } from "./modules/Back-office/home/home.component";
 import { ProfileComponent } from "./modules/Back-office/profile/profile.component";
 import { CapteurChartComponent } from "./modules/Buisiness-Intelligence/capteur-chart/capteur-chart.component";
-import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
-import { MatTestComponent } from "./modules/Buisiness-Intelligence/mat-test/mat-test.component";
+import { LastCapteurValueComponent } from "./modules/Buisiness-Intelligence/last-capteur-value/last-capteur-value.component";
+import { LineChartComponent } from "./modules/Buisiness-Intelligence/line-chart/line-chart.component";
+import { MatChipsAutocompleteComponent } from "./modules/Buisiness-Intelligence/mat-chips-autocomplete/mat-chips-autocomplete.component";
 import { HeaderComponent } from "./modules/header/header.component";
 import { LoginComponent } from "./modules/login/login.component";
 @NgModule({
@@ -26,9 +30,10 @@ import { LoginComponent } from "./modules/login/login.component";
     HomeComponent,
     HeaderComponent,
     ProfileComponent,
-    CapteurValueComponent,
+    LastCapteurValueComponent,
     CapteurChartComponent,
-    MatTestComponent,
+    LineChartComponent,
+    MatChipsAutocompleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,8 +45,11 @@ import { LoginComponent } from "./modules/login/login.component";
     FormsModule,
     BrowserAnimationsModule,
     ChartModule,
+    MatChipsModule,
     ToastrModule.forRoot(),
-    MatSliderModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatIconModule,
   ],
   providers: [
     RoleGuard,

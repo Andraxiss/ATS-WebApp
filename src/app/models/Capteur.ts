@@ -1,6 +1,6 @@
 export interface Capteur {
-  capteurId?: number;
-  capteurNom?: String;
-  capteurType?: String;
-  isBoolean?: boolean;
+  capteur_id: number;
+  capteur_nom: string;
+  capteur_type: string;
+  is_boolean: boolean;
 }

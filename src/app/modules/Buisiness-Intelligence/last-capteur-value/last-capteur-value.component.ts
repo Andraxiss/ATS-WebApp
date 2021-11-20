@@ -3,17 +3,16 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { CapteurType } from "src/app/enum/capteur_type.enum";
-import { Capteur } from "src/app/models/Capteur";
 import { CapteurValue } from "src/app/models/CapteurValue";
 import { CapteurValueBoolean } from "src/app/models/CapteurValueBoolean";
 import { CapteurValueService } from "src/app/services/capteur-value.service";
 
 @Component({
-  selector: "app-capteur-value",
-  templateUrl: "./capteur-value.component.html",
-  styleUrls: ["./capteur-value.component.scss"],
+  selector: "app-last-capteur-value",
+  templateUrl: "./last-capteur-value.component.html",
+  styleUrls: ["./last-capteur-value.component.scss"],
 })
-export class CapteurValueComponent implements OnInit, OnDestroy {
+export class LastCapteurValueComponent implements OnInit, OnDestroy {
   capteurType = CapteurType;
   machineId: number = 0;
   capteurValues: CapteurValue[] = [];
