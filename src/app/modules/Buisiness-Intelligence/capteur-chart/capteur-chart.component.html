@@ -1,5 +1,16 @@
-<div class="card">
-  <app-mat-test></app-mat-test>
-  <h5>Basic</h5>
-  <p-chart type="line" [data]="basicData" [options]="basicOptions"></p-chart>
+<h1 *ngIf="this.currentCapteur">
+  Affichage des données du capteur {{ this.currentCapteur.capteur_nom }} au cours du temps
+</h1>
+
+<div *ngIf="this.isAvailableCapteur">
+  <app-mat-chips-autocomplete
+    [capteurId]="this.capteurId"
+    [machineId]="this.machineId"
+    [availableCapteurs]="this.availableCapteurs"
+    [currentCapteur]="this.currentCapteur"
+  ></app-mat-chips-autocomplete>
+</div>
+
+<div>
+  <app-line-chart></app-line-chart>
 </div>
