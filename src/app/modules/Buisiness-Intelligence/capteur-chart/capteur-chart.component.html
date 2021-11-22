@@ -1,7 +1,9 @@
 <h1 *ngIf="this.currentCapteur">
   Affichage des données du capteur {{ this.currentCapteur.capteur_nom }} au cours du temps
 </h1>
-
+<div>
+  <app-mat-date-picker></app-mat-date-picker>
+</div>
 <div *ngIf="this.isAvailableCapteur">
   <app-mat-chips-autocomplete
     [capteurId]="this.capteurId"
