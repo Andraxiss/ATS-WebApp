@@ -5,7 +5,8 @@ import { RoleGuard } from "./guard/role.guard";
 import { AdministrationComponent } from "./modules/Back-office/administration/administration.component";
 import { HomeComponent } from "./modules/Back-office/home/home.component";
 import { ProfileComponent } from "./modules/Back-office/profile/profile.component";
-import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
+import { CapteurChartComponent } from "./modules/Buisiness-Intelligence/capteur-chart/capteur-chart.component";
+import { LastCapteurValueComponent } from "./modules/Buisiness-Intelligence/last-capteur-value/last-capteur-value.component";
 import { LoginComponent } from "./modules/login/login.component";
 
 const routes: Routes = [
@@ -15,9 +16,19 @@ const routes: Routes = [
   { path: "admin", component: AdministrationComponent, canActivate: [RoleGuard] },
   { path: "login", canActivate: [IsSignedInGuard], component: LoginComponent },
   {
-    path: "capteurs-value",
+    path: "machine/:machineId/last-capteurs-value",
     canActivate: [RoleGuard],
-    component: CapteurValueComponent,
+    component: LastCapteurValueComponent,
+  },
+  {
+    path: "machine/:machineId/:capteurId",
+    canActivate: [RoleGuard],
+    component: CapteurChartComponent,
+  },
+  {
+    path: "machine/:machineId/capteur/:capteurId/history",
+    canActivate: [RoleGuard],
+    component: CapteurChartComponent,
   },
   { path: "**", redirectTo: "" },
 ];

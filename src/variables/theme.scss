@@ -48,3 +48,11 @@ $secondary-box-shadow: 0px 0px 20px rgb(0 0 0 / 10%);
     transition: all ease-in 0.3s;
   }
 }
+
+.btn-true {
+  background-color: $lightgreen;
+}
+
+.btn-false {
+  background-color: $lightred;
+}
