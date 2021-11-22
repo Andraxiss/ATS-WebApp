@@ -46,7 +46,6 @@ export class LineChartComponent implements OnInit, OnDestroy {
     this.datasets = [];
 
     this.capteurHistories.forEach((element) => {
-      element.sort();
       this.xData = [];
       this.yData = [];
       element.forEach((capteurHistory) => {
