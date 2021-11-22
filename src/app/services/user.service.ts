@@ -18,6 +18,7 @@ export class UserService {
     if (localStorage.getItem('currentUser')) {
       const currentUser = JSON.parse(localStorage.getItem('currentUser')!) as UserDto;
       const id = Number(currentUser.userId!);
+      console.log(currentUser);
       this.userApiService.getUserById(id).subscribe(user => {
         this.setCurrentUser(user);
       }, err => console.log(err))
@@ -39,6 +40,15 @@ export class UserService {
       this.setCurrentUser(e);
       localStorage.removeItem('currentUser');
       localStorage.setItem('currentUser', JSON.stringify(e))
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  public updateUser(user: UserDto) {
+    console.log(user);
+    this.userApiService.updateUser(user).subscribe(e => {
+      this.toastr.success('Modification enregistrée.', 'Mise à jour réussie !');
     }, err => {
       console.log(err);
     })

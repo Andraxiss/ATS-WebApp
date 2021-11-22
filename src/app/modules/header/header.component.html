@@ -13,7 +13,7 @@
     <fa-icon [icon]="faUser"></fa-icon>
     <a routerLink="/profile">Profil</a>
   </div>
-  <div [ngClass]="{ focused: currentRoute === 'admin' }" class="route">
+  <div [ngClass]="{ focused: currentRoute.includes('admin')}" class="route">
     <fa-icon [icon]="faAdmin"></fa-icon>
     <a routerLink="/admin">Administration</a>
   </div>

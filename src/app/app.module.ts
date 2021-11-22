@@ -28,6 +28,10 @@ import { MatChipsAutocompleteComponent } from "./modules/Buisiness-Intelligence/
 import { MatDatePickerComponent } from "./modules/Buisiness-Intelligence/mat-date-picker/mat-date-picker.component";
 import { HeaderComponent } from "./modules/header/header.component";
 import { LoginComponent } from "./modules/login/login.component";
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ListeUtilisateursComponent } from './modules/Back-office/administration/liste-utilisateurs/liste-utilisateurs.component';
+import { ListeEntreprisesComponent } from './modules/Back-office/administration/liste-entreprises/liste-entreprises.component';
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +46,8 @@ import { LoginComponent } from "./modules/login/login.component";
     LineChartComponent,
     MatChipsAutocompleteComponent,
     MatDatePickerComponent,
+    ListeUtilisateursComponent,
+    ListeEntreprisesComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +56,7 @@ import { LoginComponent } from "./modules/login/login.component";
     FontAwesomeModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     ChartModule,
     MatChipsModule,
     ToastrModule.forRoot(),
@@ -59,6 +66,8 @@ import { LoginComponent } from "./modules/login/login.component";
     MatNativeDateModule,
     MatInputModule,
     MatIconModule,
+    MultiSelectModule,
+    DropdownModule
   ],
   providers: [
     RoleGuard,
@@ -67,4 +76,4 @@ import { LoginComponent } from "./modules/login/login.component";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

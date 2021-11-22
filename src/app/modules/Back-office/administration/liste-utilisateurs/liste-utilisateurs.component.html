@@ -1,0 +1,35 @@
+<div *ngIf="users && roles" class="table">
+    <div class="header-admin">
+        <div class="btn-primary">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            <span> Ajouter un utilisateur </span>
+        </div>
+    </div>
+    <table role="grid">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse mail</th>
+                <th>Rôles</th>
+                <th>Accès machines</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.nom + ' ' + user.prenom}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" [options]="roles"
+                        (onChange)="updateUser(user)" [(ngModel)]="user.roles" placeholder="Roles" optionLabel="nom">
+                    </p-multiSelect>
+                </td>
+                <td>
+                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" 
+                         optionLabel="name" optionValue="code"></p-multiSelect>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</div>

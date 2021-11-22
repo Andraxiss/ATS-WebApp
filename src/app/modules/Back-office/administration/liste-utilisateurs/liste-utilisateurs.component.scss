@@ -1,5 +1,5 @@
-@import "../../../../variables/colors.scss";
-@import "../../../../variables/theme.scss";
+@import "../../../../../variables/colors.scss";
+@import "../../../../../variables/theme.scss";
 :host {
     display: flex;
     flex-direction: column;
@@ -8,14 +8,6 @@
 
 h1 {
     margin: 15px;
-}
-
-.routes{
-    margin-left: 15px;
-}
-
-.p-element{
-    text-transform: capitalize;
 }
 
 .header-admin{

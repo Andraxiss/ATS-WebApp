@@ -14,6 +14,7 @@ export class UserApiService {
   constructor(private http: HttpClient) { }
 
   updateUser(user: UserDto): Observable<UserDto> {
+    console.log(user);
     const endPoint = this.controllerName;
     return this.http.put<UserDto>(endPoint, user);
   }
@@ -21,6 +22,12 @@ export class UserApiService {
     const endPoint = this.controllerName + `/${id}`;
     return this.http.get<UserDto>(endPoint);
   }
+
+  getAllUsers(): Observable<UserDto[]> {
+    const endPoint = this.controllerName + '/all';
+    return this.http.get<UserDto[]>(endPoint);
+  }
+
 
   
 
