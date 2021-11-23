@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
@@ -12,10 +12,13 @@ import { CapteurValueBoolean } from "../models/CapteurValueBoolean";
 })
 export class CapteurValueService {
   public controllerName = environment.apiURL + "/bi";
-  capteurValues: CapteurValue[] = [];
+  capteurLastValues: CapteurValue[] = [];
   capteurValuesBoolean: CapteurValueBoolean[] = [];
   capteurHistories: CapteurHistory[][] = [];
   availableCapteurs: Capteur[] = [];
+  chosenCapteurIds: number[] = [];
+  startDate: Date = new Date();
+  endDate: Date = new Date();
 
   capteurValuesSubject = new Subject<CapteurValue[]>();
   capteurValuesBooleanSubject = new Subject<CapteurValueBoolean[]>();
@@ -24,8 +27,55 @@ export class CapteurValueService {
 
   constructor(private http: HttpClient) {}
 
+  loadCapteurHistory(machineId: number, capteurId: number) {
+    //Load data to be displayed on chart
+    var params = new HttpParams();
+    var today: Date = new Date();
+    if (!this.chosenCapteurIds.includes(capteurId)) {
+      this.chosenCapteurIds.push(+capteurId);
+    }
+    if (this.startDate.getDate() !== today.getDate()) {
+      params = params.set("startTime", this.startDate.toISOString());
+    }
+    if (this.endDate.getDate() !== today.getDate()) {
+      params = params.set("endTime", this.endDate.toISOString());
+    }
+    this.getCapteurHistory(machineId, capteurId, params);
+  }
+
+  removeCapteurHistory(capteurId: number) {
+    //Remove a sensor from chart
+    let indexToRemoveChosenCapteurIds = this.chosenCapteurIds.findIndex((v) => v === capteurId);
+    if (indexToRemoveChosenCapteurIds > -1) {
+      this.chosenCapteurIds.splice(indexToRemoveChosenCapteurIds, 1);
+    }
+
+    let indexToRemoveCapteurHistories = this.capteurHistories.findIndex(
+      (v) => v[0].capteurId === capteurId
+    );
+    if (indexToRemoveCapteurHistories > -1) {
+      this.capteurHistories.splice(indexToRemoveCapteurHistories, 1);
+      this.emitcapteurHistoriesSubject();
+    }
+  }
+
+  resetCapteurHistory() {
+    //Reset all datas when chart is closed
+    this.capteurHistories = [];
+  }
+
+  onDateChange(machineId: number) {
+    //Handle new chosen date by user
+    this.resetCapteurHistory();
+    if (this.startDate !== new Date()) {
+      this.chosenCapteurIds.forEach((capteurId) => {
+        this.loadCapteurHistory(machineId, capteurId);
+      });
+    }
+  }
+
   emitCapteurValuesSubject() {
-    this.capteurValuesSubject.next(this.capteurValues.slice());
+    this.capteurValuesSubject.next(this.capteurLastValues.slice());
   }
 
   emitavailableCapteursSubject() {
@@ -45,7 +95,7 @@ export class CapteurValueService {
       this.controllerName + "/capteurs-values/machines/" + machineId + "/last-values";
     this.http.get<CapteurValue[]>(endPoint).subscribe(
       (value) => {
-        this.capteurValues = value;
+        this.capteurLastValues = value;
         this.emitCapteurValuesSubject();
       },
       (error) => {
@@ -67,7 +117,7 @@ export class CapteurValueService {
     );
   }
 
-  getCapteurHistory(machineId: number, capteurId: number) {
+  getCapteurHistory(machineId: number, capteurId: number, params: HttpParams) {
     const endPoint =
       this.controllerName +
       "/capteurs-values/machines/" +
@@ -75,7 +125,7 @@ export class CapteurValueService {
       "/capteurs/" +
       capteurId +
       "/history";
-    this.http.get<CapteurHistory[]>(endPoint).subscribe(
+    this.http.get<CapteurHistory[]>(endPoint, { params: params }).subscribe(
       (value) => {
         const lastIndexCapteur = this.capteurHistories.length;
         this.capteurHistories[lastIndexCapteur] = value;
@@ -85,15 +135,6 @@ export class CapteurValueService {
         console.log("Error on getting sensor " + capteurId + " history");
       }
     );
-  }
-
-  removeCapteurHistory(capteurId: number) {
-    let indexToRemove = this.capteurHistories.findIndex((v) => v[0].capteur_id === capteurId);
-
-    if (indexToRemove > -1) {
-      this.capteurHistories.splice(indexToRemove);
-      this.emitcapteurHistoriesSubject();
-    }
   }
 
   getCapteursAvailable(machineId: number) {
@@ -108,9 +149,5 @@ export class CapteurValueService {
         console.log("Error on getting available sensor for " + machineId + " machine");
       }
     );
-  }
-
-  resetCapteurHistory() {
-    this.capteurHistories = [];
   }
 }

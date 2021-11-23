@@ -4,7 +4,7 @@ import { FormControl } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { Capteur } from "src/app/models/Capteur";
-import { CapteurValueService } from "../../../services/capteur-value.service";
+import { CapteurValueService } from "../../../../services/capteur-value.service";
 
 @Component({
   selector: "app-mat-chips-autocomplete",
@@ -32,14 +32,13 @@ export class MatChipsAutocompleteComponent implements OnInit {
 
   ngOnInit(): void {
     this.availableCapteurs.forEach((c) => {
-      this.availableCapteursNames.push(c.capteur_nom);
+      this.availableCapteursNames.push(c.capteurNom);
     });
-    this.toBePrintedCapteurName.push(this.currentCapteur.capteur_nom);
+    this.toBePrintedCapteurName.push(this.currentCapteur.capteurNom);
   }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || "").trim();
-    // Add our fruit
     if (value) {
       this.toBePrintedCapteurName.push(value);
     }
@@ -59,14 +58,14 @@ export class MatChipsAutocompleteComponent implements OnInit {
   }
 
   addNewCapteurToChart(capteurName: String) {
-    let capteurIdToPrint = this.availableCapteurs.filter((v) => v.capteur_nom === capteurName)[0]
-      .capteur_id;
-    this.capteurValueService.getCapteurHistory(this.machineId, capteurIdToPrint);
+    let capteurIdToPrint = this.availableCapteurs.filter((v) => v.capteurNom === capteurName)[0]
+      .capteurId;
+    this.capteurValueService.loadCapteurHistory(this.machineId, capteurIdToPrint);
   }
 
   removeCapteurFromChart(capteurName: String) {
-    let capteurIdToremove = this.availableCapteurs.filter((v) => v.capteur_nom === capteurName)[0]
-      .capteur_id;
+    let capteurIdToremove = this.availableCapteurs.filter((v) => v.capteurNom === capteurName)[0]
+      .capteurId;
     this.capteurValueService.removeCapteurHistory(capteurIdToremove);
   }
 
