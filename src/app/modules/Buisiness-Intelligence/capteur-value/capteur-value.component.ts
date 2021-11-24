@@ -29,7 +29,7 @@ export class CapteurValueComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscribeValues();
-    this.machineId = this.route.snapshot.params["id"];
+    this.machineId = this.route.snapshot.params["machineId"];
     this.loadData(this.machineId);
   }
 

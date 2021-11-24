@@ -4,6 +4,7 @@ import { IsSignedInGuard } from "./guard/isSignedGuard";
 import { RoleGuard } from "./guard/role.guard";
 import { HomeComponent } from "./modules/Back-office/home/home.component";
 import { ProfileComponent } from "./modules/Back-office/profile/profile.component";
+import { CapteurChartComponent } from "./modules/Buisiness-Intelligence/capteur-chart/capteur-chart.component";
 import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
 import { LoginComponent } from "./modules/login/login.component";
 
@@ -13,9 +14,14 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent, canActivate: [RoleGuard] },
   { path: "login", canActivate: [IsSignedInGuard], component: LoginComponent },
   {
-    path: "machine/:id/capteurs-value",
+    path: "machine/:machineId/capteurs-value",
     canActivate: [RoleGuard],
     component: CapteurValueComponent,
+  },
+  {
+    path: "machine/:machineId/:capteurId",
+    canActivate: [RoleGuard],
+    component: CapteurChartComponent,
   },
   { path: "**", redirectTo: "" },
 ];
