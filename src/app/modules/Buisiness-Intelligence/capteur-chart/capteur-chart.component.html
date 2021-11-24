@@ -1,5 +1,6 @@
 <h1 *ngIf="this.currentCapteur">
-  Affichage des données du capteur {{ this.currentCapteur.capteurNom }} au cours du temps
+  Affichage des données du capteur {{ this.currentCapteur.capteurNom }} au cours
+  du temps
 </h1>
 <div class="date-pickers">
   <app-mat-date-picker
@@ -12,7 +13,9 @@
     [machineId]="this.machineId"
     [dateType]="'endDate'"
   ></app-mat-date-picker>
-  <button class="btn-reset" (click)="resetDate()">Réinitialiser les dates</button>
+  <button class="btn-reset" (click)="resetDate()">
+    Réinitialiser les dates
+  </button>
 </div>
 <div *ngIf="this.isAvailableCapteur">
   <app-mat-chips-autocomplete
@@ -24,5 +27,12 @@
 </div>
 
 <div>
-  <app-line-chart></app-line-chart>
+  <mat-tab-group>
+    <mat-tab label="Graphique">
+      <app-line-chart></app-line-chart>
+    </mat-tab>
+    <mat-tab label="Tableau">
+      <app-capteur-history-table></app-capteur-history-table>
+    </mat-tab>
+  </mat-tab-group>
 </div>

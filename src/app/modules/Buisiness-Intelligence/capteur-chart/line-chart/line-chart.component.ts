@@ -31,15 +31,16 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   subscribeCapteurHistories() {
-    this.capteurHistorySubscription = this.capteurValueService.capteurHistoriesSubject.subscribe(
-      (value) => {
-        this.capteurHistories = value;
-        this.constructData();
-      },
-      (error) => {
-        console.log("Error on capteurHistorySubscription ");
-      }
-    );
+    this.capteurHistorySubscription =
+      this.capteurValueService.capteurHistoriesSubject.subscribe(
+        (value) => {
+          this.capteurHistories = value;
+          this.constructData();
+        },
+        (error) => {
+          console.log("Error on capteurHistorySubscription ");
+        }
+      );
   }
 
   constructData() {
@@ -49,7 +50,11 @@ export class LineChartComponent implements OnInit, OnDestroy {
       this.xData = [];
       this.yData = [];
       element.forEach((capteurHistory) => {
-        this.xData.push(capteurHistory.dateReleve);
+        this.xData.push(
+          capteurHistory.dateReleve.toString().split("T")[0] +
+            " " +
+            capteurHistory.dateReleve.toString().split("T")[1]
+        );
         this.yData.push(capteurHistory.capteurValue);
       });
 
@@ -58,7 +63,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
         data: this.yData,
         fill: false,
         borderColor:
-          "#" + ("000000" + Math.floor(0x1000000 * Math.random()).toString(16)).slice(-6),
+          "#" +
+          ("000000" + Math.floor(0x1000000 * Math.random()).toString(16)).slice(
+            -6
+          ),
         tension: 0.4,
       });
     });

@@ -31,6 +31,10 @@ export class CapteurValueService {
     //Load data to be displayed on chart
     var params = new HttpParams();
     var today: Date = new Date();
+    console.log(
+      "🚀 ~ file: capteur-value.service.ts ~ line 35 ~ CapteurValueService ~ loadCapteurHistory ~ chosenCapteurIds",
+      this.chosenCapteurIds
+    );
     if (!this.chosenCapteurIds.includes(capteurId)) {
       this.chosenCapteurIds.push(+capteurId);
     }
@@ -45,7 +49,9 @@ export class CapteurValueService {
 
   removeCapteurHistory(capteurId: number) {
     //Remove a sensor from chart
-    let indexToRemoveChosenCapteurIds = this.chosenCapteurIds.findIndex((v) => v === capteurId);
+    let indexToRemoveChosenCapteurIds = this.chosenCapteurIds.findIndex(
+      (v) => v === capteurId
+    );
     if (indexToRemoveChosenCapteurIds > -1) {
       this.chosenCapteurIds.splice(indexToRemoveChosenCapteurIds, 1);
     }
@@ -92,7 +98,10 @@ export class CapteurValueService {
 
   getLastValue(machineId: number) {
     const endPoint =
-      this.controllerName + "/capteurs-values/machines/" + machineId + "/last-values";
+      this.controllerName +
+      "/capteurs-values/machines/" +
+      machineId +
+      "/last-values";
     this.http.get<CapteurValue[]>(endPoint).subscribe(
       (value) => {
         this.capteurLastValues = value;
@@ -105,7 +114,11 @@ export class CapteurValueService {
   }
 
   getLastValueBoolean(machineId: number) {
-    const endPoint = this.controllerName + "/capteurs-values-boolean/" + machineId + "/last-values";
+    const endPoint =
+      this.controllerName +
+      "/capteurs-values-boolean/" +
+      machineId +
+      "/last-values";
     this.http.get<CapteurValueBoolean[]>(endPoint).subscribe(
       (value) => {
         this.capteurValuesBoolean = value;
@@ -139,14 +152,20 @@ export class CapteurValueService {
 
   getCapteursAvailable(machineId: number) {
     this.availableCapteurs = [];
-    const endPoint = this.controllerName + "/capteurs-values/machines/" + machineId + "/available";
+    const endPoint =
+      this.controllerName +
+      "/capteurs-values/machines/" +
+      machineId +
+      "/available";
     this.http.get<Capteur[]>(endPoint).subscribe(
       (value) => {
         this.availableCapteurs = value;
         this.emitavailableCapteursSubject();
       },
       (error) => {
-        console.log("Error on getting available sensor for " + machineId + " machine");
+        console.log(
+          "Error on getting available sensor for " + machineId + " machine"
+        );
       }
     );
   }

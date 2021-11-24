@@ -23,8 +23,14 @@
         (matChipInputTokenEnd)="add($event)"
       />
     </mat-chip-list>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let capteur of availableCapteursNames" [value]="capteur">
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selected($event)"
+    >
+      <mat-option
+        *ngFor="let capteur of availableCapteursNames"
+        [value]="capteur"
+      >
         {{ capteur }}
       </mat-option>
     </mat-autocomplete>
