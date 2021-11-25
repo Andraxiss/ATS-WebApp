@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 
 
 interface adminRoute {
-  name: string;
+  name?: string;
 }
 
 @Component({
@@ -21,16 +21,21 @@ interface adminRoute {
 })
 export class AdministrationComponent implements OnInit {
   public routes: adminRoute[] = [{ name: 'utilisateurs' }, { name: 'entreprises' }];
+  public activeRoute: adminRoute = {}
   constructor(private router: Router) {
   }
 
-
   ngOnInit(): void {
+    this.initialCheckRoute();
   }
 
   navigate(route: string) {
-    console.log(route);
     this.router.navigate(['/admin/' + route])
+  }
+
+  initialCheckRoute() {
+    const url = this.router.url.split('/').find((elt, i, arr) => elt === arr[arr.length - 1]);
+    this.activeRoute = (this.routes.find(e => e.name?.includes(url!))) ?? this.routes[0];
   }
 
 

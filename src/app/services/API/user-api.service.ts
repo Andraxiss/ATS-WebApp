@@ -14,9 +14,12 @@ export class UserApiService {
   constructor(private http: HttpClient) { }
 
   updateUser(user: UserDto): Observable<UserDto> {
-    console.log(user);
     const endPoint = this.controllerName;
     return this.http.put<UserDto>(endPoint, user);
+  }
+  createUser(user: UserDto): Observable<UserDto> {
+    const endPoint = this.controllerName+ '/create';
+    return this.http.post<UserDto>(endPoint, user);
   }
   getUserById(id: number): Observable<UserDto> {
     const endPoint = this.controllerName + `/${id}`;

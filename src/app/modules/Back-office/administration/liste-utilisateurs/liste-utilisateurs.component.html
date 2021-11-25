@@ -1,6 +1,6 @@
 <div *ngIf="users && roles" class="table">
     <div class="header-admin">
-        <div class="btn-primary">
+        <div (click)="displayModal()" class="btn-primary">
             <fa-icon [icon]="faPlus"></fa-icon>
             <span> Ajouter un utilisateur </span>
         </div>
@@ -24,8 +24,8 @@
                     </p-multiSelect>
                 </td>
                 <td>
-                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" 
-                         optionLabel="name" optionValue="code"></p-multiSelect>
+                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" optionLabel="name"
+                        optionValue="code"></p-multiSelect>
                 </td>
             </tr>
 
@@ -33,3 +33,27 @@
 
     </table>
 </div>
+
+<p-dialog close header="Nouvel utilisateur" styleClass="test" [(visible)]="isModalDisplayed">
+    <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="submit()">
+        <div class="input-with-label">
+            <label for="prenom">Prénom*</label>
+            <input autocomplete="off" type="text" formControlName="prenom" name="prenom">
+        </div>
+        <div class="input-with-label">
+            <label for="nom">Nom*</label>
+            <input autocomplete="off" type="text" formControlName="nom" name="nom">
+        </div>
+        <div class="input-with-label">
+            <label for="email">Email*</label>
+            <input formControlName="email" autocomplete="off" type="text" name="email">
+        </div>
+        <div class="input-with-label">
+            <label for="password">Mot de passe*</label>
+            <input autocomplete="off" formControlName="password" type="password" name="password">
+        </div>
+        <div class="button-submit">
+            <button type="submit" class="btn-primary">Créer</button>
+        </div>
+    </form>
+</p-dialog>

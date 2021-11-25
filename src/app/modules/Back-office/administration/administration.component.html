@@ -1,6 +1,7 @@
 <h1 class="username">Administration</h1>
 <div class="routes">
-    <p-dropdown (onChange)="navigate($event.value.name)" styleClass="test" [options]="routes" optionLabel="name">
+    <p-dropdown [ngModel]="activeRoute" (onChange)="navigate($event.value.name)" styleClass="test" [options]="routes"
+        optionLabel="name">
     </p-dropdown>
 </div>
 <router-outlet></router-outlet>

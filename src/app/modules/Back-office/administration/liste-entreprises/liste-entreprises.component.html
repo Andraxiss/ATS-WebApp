@@ -1,1 +1,59 @@
-<p>liste-entreprises works!</p>
+<div class="table">
+    <div class="header-admin">
+        <div (click)="displayModal()" class="btn-primary">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            <span> Ajouter une entreprise </span>
+        </div>
+    </div>
+    <table role="grid">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>N°Siret</th>
+                <th>Accès machines</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.nom + ' ' + user.prenom}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" [options]="roles"
+                        (onChange)="updateUser(user)" [(ngModel)]="user.roles" placeholder="Roles" optionLabel="nom">
+                    </p-multiSelect>
+                </td>
+                <td>
+                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" optionLabel="name"
+                        optionValue="code"></p-multiSelect>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</div>
+
+<p-dialog close header="Nouvel utilisateur" styleClass="test" [(visible)]="isModalDisplayed">
+    <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="submit()">
+        <div class="input-with-label">
+            <label for="prenom">Nom*</label>
+            <input autocomplete="off" type="text" formControlName="prenom" name="prenom">
+        </div>
+        <div class="input-with-label">
+            <label for="nom">Adresse*</label>
+            <input autocomplete="off" type="text" formControlName="nom" name="nom">
+        </div>
+        <div class="input-with-label">
+            <label for="email">Email*</label>
+            <input formControlName="email" autocomplete="off" type="text" name="email">
+        </div>
+        <div class="input-with-label">
+            <label for="password">Mot de passe*</label>
+            <input autocomplete="off" formControlName="password" type="password" name="password">
+        </div>
+        <div class="button-submit">
+            <button type="submit" class="btn-primary">Créer</button>
+        </div>
+    </form>
+</p-dialog>

@@ -31,7 +31,8 @@ import { LoginComponent } from "./modules/login/login.component";
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ListeUtilisateursComponent } from './modules/Back-office/administration/liste-utilisateurs/liste-utilisateurs.component';
 import { ListeEntreprisesComponent } from './modules/Back-office/administration/liste-entreprises/liste-entreprises.component';
-import {DropdownModule} from 'primeng/dropdown';
+import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,8 @@ import {DropdownModule} from 'primeng/dropdown';
     MatInputModule,
     MatIconModule,
     MultiSelectModule,
-    DropdownModule
+    DropdownModule,
+    DialogModule
   ],
   providers: [
     RoleGuard,

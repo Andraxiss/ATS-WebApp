@@ -13,6 +13,7 @@ const jwtHelper = new JwtHelperService();
 export class UserService {
 
   private $currentUser: BehaviorSubject<UserDto> = new BehaviorSubject<UserDto>({});
+  private $allUsers: BehaviorSubject<UserDto[]> = new BehaviorSubject<UserDto[]>([]);
   private isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private toastr: ToastrService, private userApiService: UserApiService) {
     if (localStorage.getItem('currentUser')) {
@@ -23,6 +24,20 @@ export class UserService {
         this.setCurrentUser(user);
       }, err => console.log(err))
     }
+  }
+
+  public getAllUsers() {
+    this.userApiService.getAllUsers().subscribe(u => {
+      this.$allUsers.next(u);
+    })
+    return this.$allUsers;
+  }
+
+  public createUser(user: UserDto) {
+    this.userApiService.createUser(user).subscribe(e => {
+      this.toastr.success('Modification enregistrée.', 'Utilisateur créé !');
+      this.getAllUsers();
+    }, err => console.log(err))
   }
 
   public isAuthenticated(): boolean {

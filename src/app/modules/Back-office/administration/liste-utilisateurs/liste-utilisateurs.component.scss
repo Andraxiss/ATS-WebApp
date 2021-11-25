@@ -10,14 +10,19 @@ h1 {
     margin: 15px;
 }
 
-.header-admin{
+.header-admin {
     display: flex;
     flex-direction: row-reverse;
     margin-bottom: 10px;
 
-    fa-icon{
+    fa-icon {
         margin-right: 5px;
     }
+}
+
+::ng-deep.p-dialog {
+    width: 600px;
+    height: auto;
 }
 
 table {
@@ -50,7 +55,7 @@ table {
                 border: 1px solid $lightGreyBorder;
                 cursor: default;
 
-                .test{
+                .test {
                     width: 100%;
                 }
             }
