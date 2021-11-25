@@ -1,4 +1,3 @@
-import { Timestamp } from "rxjs/internal/operators/timestamp";
 import { Capteur } from "./Capteur";
 
 export interface CapteurValueBoolean {

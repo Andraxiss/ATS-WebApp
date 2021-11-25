@@ -1,9 +1,8 @@
-import { Capteur } from "./Capteur";
-
-export interface CapteurValue {
+export interface CapteurHistory {
   capteurValueId: number;
   capteurValue: DoubleRange;
   machineId: number;
+  capteurId: number;
   dateReleve: Date;
-  capteur: Capteur;
+  capteurNom: string;
 }

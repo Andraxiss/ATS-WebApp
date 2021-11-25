@@ -1,0 +1,37 @@
+<div *ngIf="this.capteurHistories !== []">
+  <table class="capteur-value-table">
+    <tr class="capteur-value-row">
+      <th
+        class="capteur-value-case"
+        scope="col"
+        *ngFor="let capteurNom of this.capteursNom"
+      >
+        {{ capteurNom }}
+      </th>
+    </tr>
+    <tr
+      class="capteur-value-row"
+      *ngFor="
+        let n of numSequence(this.capteurHistories[0].length);
+        let i = index
+      "
+    >
+      <td class="capteur-value-case">
+        {{
+          this.capteurHistories[0][i].dateReleve.toString().split("T")[0] +
+            " " +
+            this.capteurHistories[0][i].dateReleve.toString().split("T")[1]
+        }}
+      </td>
+      <td
+        class="capteur-value-case"
+        *ngFor="
+          let m of numSequence(this.capteurHistories.length);
+          let j = index
+        "
+      >
+        {{ this.capteurHistories[j][i].capteurValue }}
+      </td>
+    </tr>
+  </table>
+</div>
