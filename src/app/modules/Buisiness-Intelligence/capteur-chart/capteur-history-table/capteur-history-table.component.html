@@ -16,12 +16,18 @@
         let i = index
       "
     >
-      <td class="capteur-value-case">
-        {{
-          this.capteurHistories[0][i].dateReleve.toString().split("T")[0] +
-            " " +
-            this.capteurHistories[0][i].dateReleve.toString().split("T")[1]
-        }}
+      <td [ngClass]="['capteur-value-case', 'date-releve']">
+        <a
+          [routerLink]="['/machine/1/capteurs-value']"
+          [queryParams]="{
+            date: this.capteurHistories[0][i].dateReleve.toString()
+          }"
+          >{{
+            this.capteurHistories[0][i].dateReleve.toString().split("T")[0] +
+              " " +
+              this.capteurHistories[0][i].dateReleve.toString().split("T")[1]
+          }}</a
+        >
       </td>
       <td
         class="capteur-value-case"

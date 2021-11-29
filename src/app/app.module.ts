@@ -27,7 +27,7 @@ import { CapteurHistoryTableComponent } from "./modules/Buisiness-Intelligence/c
 import { LineChartComponent } from "./modules/Buisiness-Intelligence/capteur-chart/line-chart/line-chart.component";
 import { MatChipsAutocompleteComponent } from "./modules/Buisiness-Intelligence/capteur-chart/mat-chips-autocomplete/mat-chips-autocomplete.component";
 import { MatDatePickerComponent } from "./modules/Buisiness-Intelligence/capteur-chart/mat-date-picker/mat-date-picker.component";
-import { LastCapteurValueComponent } from "./modules/Buisiness-Intelligence/last-capteur-value/last-capteur-value.component";
+import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
 import { HeaderComponent } from "./modules/header/header.component";
 import { LoginComponent } from "./modules/login/login.component";
 @NgModule({
@@ -37,7 +37,7 @@ import { LoginComponent } from "./modules/login/login.component";
     HomeComponent,
     HeaderComponent,
     ProfileComponent,
-    LastCapteurValueComponent,
+    CapteurValueComponent,
     CapteurChartComponent,
     LineChartComponent,
     MatChipsAutocompleteComponent,
