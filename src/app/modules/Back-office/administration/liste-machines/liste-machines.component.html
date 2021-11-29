@@ -2,23 +2,19 @@
     <div class="header-admin">
         <div (click)="displayModal()" class="btn-primary">
             <fa-icon [icon]="faPlus"></fa-icon>
-            <span> Ajouter une entreprise </span>
+            <span> Ajouter une machine</span>
         </div>
     </div>
-    <table *ngIf="entreprises.length > 0" role="grid">
+    <table *ngIf="machines.length > 0" role="grid">
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>Adresse</th>
-                <th>N°Siret</th>
-                <th>Accès machines</th>
+                <th>Entreprises</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let entreprise of entreprises">
+            <tr *ngFor="let entreprise of machines">
                 <td>{{entreprise.nom}}</td>
-                <td>{{entreprise.adresse}}</td>
-                <td>{{entreprise.siret}}</td>
                 <td>
                     <p-multiSelect *ngIf="entreprise.nom" [style]="{'width': '100%'}" [showToggleAll]="false"
                         optionLabel="name" optionValue="code"></p-multiSelect>
@@ -30,20 +26,13 @@
     </table>
 </div>
 
-<p-dialog close header="Nouvel utilisateur" styleClass="test" [(visible)]="isModalDisplayed">
-    <form *ngIf="entrepriseForm" [formGroup]="entrepriseForm" (ngSubmit)="submit()">
+<p-dialog close header="Nouvelle machine" [(visible)]="isModalDisplayed">
+    <form *ngIf="machineForm" [formGroup]="machineForm" (ngSubmit)="submit()">
         <div class="input-with-label">
             <label for="prenom">Nom*</label>
             <input autocomplete="off" type="text" formControlName="nom" name="nom">
         </div>
-        <div class="input-with-label">
-            <label for="nom">Adresse*</label>
-            <input autocomplete="off" type="text" formControlName="adresse" name="adresse">
-        </div>
-        <div class="input-with-label">
-            <label for="email">Siret*</label>
-            <input formControlName="siret" autocomplete="off" type="text" name="siret">
-        </div>
+
         <div class="button-submit">
             <button type="submit" class="btn-primary">Créer</button>
         </div>

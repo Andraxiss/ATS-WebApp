@@ -6,6 +6,7 @@ import { EntrepriseDto } from 'src/app/models/EntrepriseDto';
 import { RoleDto } from 'src/app/models/RoleDto';
 import { UserDto } from 'src/app/models/UserDto';
 import { UserApiService } from 'src/app/services/API/user-api.service';
+import { EntrepriseService } from 'src/app/services/entreprise.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,32 +24,28 @@ export class ListeEntreprisesComponent implements OnInit {
   public isModalDisplayed: boolean = false;
   constructor(private userApiService: UserApiService,
     private roleService: RoleService,
-    private userService: UserService,
+    private entrepriseService: EntrepriseService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService) {
   }
 
   faPlus = faPlus;
-  public userForm?: FormGroup;
+  public entrepriseForm?: FormGroup;
   ngOnInit(): void {
-    this.userService.getAllUsers().subscribe(u => {
+    this.entrepriseService.getAllEntreprise().subscribe(u => {
       this.entreprises = u;
-    }, err => console.log(err))
-
-    this.roleService.getRoles().subscribe(r => {
-      this.roles = r;
+      console.log(this.entreprises);
     }, err => console.log(err))
 
     this.initForm();
-
   }
 
-  updateUser(user: UserDto) {
-    this.userService.updateUser(user);
+  updateUser(entreprise: EntrepriseDto) {
+    this.entrepriseService.updateEntreprise(entreprise);
   }
 
   initForm() {
-    this.userForm = this.formBuilder.group({
+    this.entrepriseForm = this.formBuilder.group({
       nom: [this.newEntreprise.nom, Validators.required],
       siret: [this.newEntreprise.siret, Validators.required],
       adresse: [this.newEntreprise.adresse, [Validators.required]],
@@ -56,22 +53,22 @@ export class ListeEntreprisesComponent implements OnInit {
   }
 
   resetForm() {
-    this.userForm?.reset();
+    this.entrepriseForm?.reset();
   }
 
 
   submit() {
-    if (this.userForm?.valid) {
-      const formValue = this.userForm?.value;
+    if (this.entrepriseForm?.valid) {
+      const formValue = this.entrepriseForm?.value;
       this.newEntreprise.nom = formValue['nom'];
       this.newEntreprise.siret = formValue['siret'];
       this.newEntreprise.adresse = formValue['adresse'];
-      this.userService.createUser(this.newUser);
+      this.entrepriseService.createEntreprise(this.newEntreprise);
       this.isModalDisplayed = false;
       this.resetForm();
 
     } else {
-      let a = this.userForm!.controls;
+      let a = this.entrepriseForm!.controls;
       for (let control in a) {
         if (a[control].invalid) {
           this.invalidField.push(control)

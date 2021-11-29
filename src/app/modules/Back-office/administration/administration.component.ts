@@ -20,7 +20,7 @@ interface adminRoute {
   styleUrls: ['./administration.component.scss']
 })
 export class AdministrationComponent implements OnInit {
-  public routes: adminRoute[] = [{ name: 'utilisateurs' }, { name: 'entreprises' }];
+  public routes: adminRoute[] = [{ name: 'utilisateurs' }, { name: 'entreprises' }, { name: 'machines' }];
   public activeRoute: adminRoute = {}
   constructor(private router: Router) {
   }

@@ -33,6 +33,7 @@ import { ListeUtilisateursComponent } from './modules/Back-office/administration
 import { ListeEntreprisesComponent } from './modules/Back-office/administration/liste-entreprises/liste-entreprises.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
+import { ListeMachinesComponent } from './modules/Back-office/administration/liste-machines/liste-machines.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,7 @@ import { DialogModule } from 'primeng/dialog';
     MatDatePickerComponent,
     ListeUtilisateursComponent,
     ListeEntreprisesComponent,
+    ListeMachinesComponent,
   ],
   imports: [
     BrowserModule,

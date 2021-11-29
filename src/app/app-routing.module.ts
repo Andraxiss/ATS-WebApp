@@ -4,6 +4,7 @@ import { IsSignedInGuard } from "./guard/isSignedGuard";
 import { RoleGuard } from "./guard/role.guard";
 import { AdministrationComponent } from "./modules/Back-office/administration/administration.component";
 import { ListeEntreprisesComponent } from "./modules/Back-office/administration/liste-entreprises/liste-entreprises.component";
+import { ListeMachinesComponent } from "./modules/Back-office/administration/liste-machines/liste-machines.component";
 import { ListeUtilisateursComponent } from "./modules/Back-office/administration/liste-utilisateurs/liste-utilisateurs.component";
 import { HomeComponent } from "./modules/Back-office/home/home.component";
 import { ProfileComponent } from "./modules/Back-office/profile/profile.component";
@@ -20,6 +21,7 @@ const routes: Routes = [
     children: [
       { path: "utilisateurs", component: ListeUtilisateursComponent },
       { path: "entreprises", component: ListeEntreprisesComponent },
+      { path: "machines", component: ListeMachinesComponent },
       { path: "", pathMatch: "full", redirectTo: "utilisateurs" },
     ]
   },
