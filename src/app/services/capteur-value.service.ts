@@ -31,10 +31,6 @@ export class CapteurValueService {
     //Load data to be displayed on chart
     var params = new HttpParams();
     var today: Date = new Date();
-    console.log(
-      "🚀 ~ file: capteur-value.service.ts ~ line 35 ~ CapteurValueService ~ loadCapteurHistory ~ chosenCapteurIds",
-      this.chosenCapteurIds
-    );
     if (!this.chosenCapteurIds.includes(capteurId)) {
       this.chosenCapteurIds.push(+capteurId);
     }
@@ -96,13 +92,21 @@ export class CapteurValueService {
     this.capteurValuesBooleanSubject.next(this.capteurValuesBoolean.slice());
   }
 
-  getLastValue(machineId: number) {
-    const endPoint =
-      this.controllerName +
-      "/capteurs-values/machines/" +
-      machineId +
-      "/last-values";
-    this.http.get<CapteurValue[]>(endPoint).subscribe(
+  getValueByDate(machineId: number, date: string) {
+    var params = new HttpParams();
+    var endPoint =
+      this.controllerName + "/capteurs-values/machines/" + machineId;
+    if (date === "LAST") {
+      endPoint += "/last-values";
+    } else {
+      params = params.set("dateReleve", date);
+    }
+    console.log(
+      "🚀 ~ file: capteur-value.service.ts ~ line 106 ~ CapteurValueService ~ getValueByDate ~ endPoint",
+      endPoint
+    );
+
+    this.http.get<CapteurValue[]>(endPoint, { params: params }).subscribe(
       (value) => {
         this.capteurLastValues = value;
         this.emitCapteurValuesSubject();
@@ -113,21 +117,26 @@ export class CapteurValueService {
     );
   }
 
-  getLastValueBoolean(machineId: number) {
-    const endPoint =
-      this.controllerName +
-      "/capteurs-values-boolean/" +
-      machineId +
-      "/last-values";
-    this.http.get<CapteurValueBoolean[]>(endPoint).subscribe(
-      (value) => {
-        this.capteurValuesBoolean = value;
-        this.emitCapteurValuesBooleanSubject();
-      },
-      (error) => {
-        console.log("Error on getting last boolean values");
-      }
-    );
+  getValueBoolean(machineId: number, date: string) {
+    var params = new HttpParams();
+    var endPoint =
+      this.controllerName + "/capteurs-values-boolean/machines/" + machineId;
+    if (date === "LAST") {
+      endPoint += "/last-values";
+    } else {
+      params = params.set("dateReleve", date);
+    }
+    this.http
+      .get<CapteurValueBoolean[]>(endPoint, { params: params })
+      .subscribe(
+        (value) => {
+          this.capteurValuesBoolean = value;
+          this.emitCapteurValuesBooleanSubject();
+        },
+        (error) => {
+          console.log("Error on getting last boolean values");
+        }
+      );
   }
 
   getCapteurHistory(machineId: number, capteurId: number, params: HttpParams) {

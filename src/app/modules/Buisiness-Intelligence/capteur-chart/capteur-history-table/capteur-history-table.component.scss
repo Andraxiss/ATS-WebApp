@@ -15,4 +15,13 @@
       margin: auto;
     }
   }
+  .date-releve {
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  .date-releve:hover {
+    background-color: $lightyellowSecondaryBg;
+  }
 }
