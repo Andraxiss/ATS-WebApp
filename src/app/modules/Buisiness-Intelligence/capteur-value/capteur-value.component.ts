@@ -9,16 +9,20 @@ import { CapteurValueService } from "src/app/services/capteur-value.service";
 
 @Component({
   selector: "app-last-capteur-value",
-  templateUrl: "./last-capteur-value.component.html",
-  styleUrls: ["./last-capteur-value.component.scss"],
+  templateUrl: "./capteur-value.component.html",
+  styleUrls: ["./capteur-value.component.scss"],
 })
-export class LastCapteurValueComponent implements OnInit, OnDestroy {
+export class CapteurValueComponent implements OnInit, OnDestroy {
   capteurType = CapteurType;
   machineId: number = 0;
   capteurValues: CapteurValue[] = [];
   capteurValuesBoolean: CapteurValueBoolean[] = [];
   capteurValueSubscription = new Subscription();
   capteurValueBooleanSubscription = new Subscription();
+
+  date: string = "";
+  title: string = "";
+  subTitle: string = "";
 
   constructor(
     private http: HttpClient,
@@ -38,19 +42,32 @@ export class LastCapteurValueComponent implements OnInit, OnDestroy {
   }
 
   loadData(machineId: number) {
-    this.capteurValueService.getLastValue(machineId);
-    this.capteurValueService.getLastValueBoolean(machineId);
+    if (this.route.snapshot.url.toString().split(",").pop() === "last-value") {
+      this.date = "LAST";
+      this.title = "Dernier relevé des capteurs pour la machine";
+      this.subTitle = "Date du dernier relevé :";
+    } else {
+      this.route.queryParams.subscribe((params) => {
+        this.date = params["date"];
+        this.title = "Relevé des capteurs pour la machine";
+        this.subTitle = "Date du relevé :";
+      });
+    }
+
+    this.capteurValueService.getValueByDate(machineId, this.date);
+    this.capteurValueService.getValueBoolean(machineId, this.date);
   }
 
   subscribeValues() {
-    this.capteurValueSubscription = this.capteurValueService.capteurValuesSubject.subscribe(
-      (value) => {
-        this.capteurValues = value;
-      },
-      (error) => {
-        console.error("Error on subscription values");
-      }
-    );
+    this.capteurValueSubscription =
+      this.capteurValueService.capteurValuesSubject.subscribe(
+        (value) => {
+          this.capteurValues = value;
+        },
+        (error) => {
+          console.error("Error on subscription values");
+        }
+      );
 
     this.capteurValueBooleanSubscription =
       this.capteurValueService.capteurValuesBooleanSubject.subscribe(

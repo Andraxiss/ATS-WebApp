@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { CapteurHistory } from "src/app/models/CapteurHistory";
-import { CapteurValueService } from "../../../services/capteur-value.service";
+import { CapteurValueService } from "../../../../services/capteur-value.service";
 
 @Component({
   selector: "app-line-chart",
@@ -31,15 +31,16 @@ export class LineChartComponent implements OnInit, OnDestroy {
   }
 
   subscribeCapteurHistories() {
-    this.capteurHistorySubscription = this.capteurValueService.capteurHistoriesSubject.subscribe(
-      (value) => {
-        this.capteurHistories = value;
-        this.constructData();
-      },
-      (error) => {
-        console.log("Error on capteurHistorySubscription ");
-      }
-    );
+    this.capteurHistorySubscription =
+      this.capteurValueService.capteurHistoriesSubject.subscribe(
+        (value) => {
+          this.capteurHistories = value;
+          this.constructData();
+        },
+        (error) => {
+          console.log("Error on capteurHistorySubscription ");
+        }
+      );
   }
 
   constructData() {
@@ -49,16 +50,23 @@ export class LineChartComponent implements OnInit, OnDestroy {
       this.xData = [];
       this.yData = [];
       element.forEach((capteurHistory) => {
-        this.xData.push(capteurHistory.date_releve);
-        this.yData.push(capteurHistory.capteur_value);
+        this.xData.push(
+          capteurHistory.dateReleve.toString().split("T")[0] +
+            " " +
+            capteurHistory.dateReleve.toString().split("T")[1]
+        );
+        this.yData.push(capteurHistory.capteurValue);
       });
 
       this.datasets.push({
-        label: "Capteur " + element[0].capteur_nom,
+        label: "Capteur " + element[0].capteurNom,
         data: this.yData,
         fill: false,
         borderColor:
-          "#" + ("000000" + Math.floor(0x1000000 * Math.random()).toString(16)).slice(-6),
+          "#" +
+          ("000000" + Math.floor(0x1000000 * Math.random()).toString(16)).slice(
+            -6
+          ),
         tension: 0.4,
       });
     });

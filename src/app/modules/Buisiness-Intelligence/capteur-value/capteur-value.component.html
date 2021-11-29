@@ -1,0 +1,100 @@
+<h1>{{this.title}} {{ machineId }}</h1>
+<h2>{{this.subTitle}} {{ capteurValues[0]?.dateReleve }}</h2>
+<div class="lastCapteurValue">
+  <div class="sub-lastCapteurValue">
+    <h2>Temperatures</h2>
+    <div *ngFor="let capteurValue of capteurValues">
+      <div *ngIf="capteurValue.capteur.capteurType == capteurType.TEMPERATURE">
+        <button
+          class="btn-primary"
+          [routerLink]="[
+            '/machine',
+            capteurValue.machineId,
+            'capteur',
+            capteurValue.capteur.capteurId,
+            'history'
+          ]"
+        >
+          {{ capteurValue.capteur.capteurNom }} :
+          {{ capteurValue.capteurValue }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-lastCapteurValue">
+    <h2>Pressions</h2>
+    <div *ngFor="let capteurValue of capteurValues">
+      <div *ngIf="capteurValue.capteur.capteurType == capteurType.PRESSION">
+        <button
+          class="btn-primary"
+          [routerLink]="[
+            '/machine',
+            capteurValue.machineId,
+            'capteur',
+            capteurValue.capteur.capteurId,
+            'history'
+          ]"
+        >
+          {{ capteurValue.capteur.capteurNom }} :
+          {{ capteurValue.capteurValue }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lastCapteurValue">
+  <div class="sub-lastCapteurValue">
+    <h2>Humidités</h2>
+    <div *ngFor="let capteurValue of capteurValues">
+      <div *ngIf="capteurValue.capteur.capteurType == capteurType.HUMIDITE">
+        <button
+          class="btn-primary"
+          [routerLink]="['/machine', capteurValue.machineId, capteurValue.capteur.capteurId]"
+        >
+          {{ capteurValue.capteur.capteurNom }} :
+          {{ capteurValue.capteurValue }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="sub-lastCapteurValue">
+    <h2>Booléens</h2>
+    <div *ngFor="let capteurValueBoolean of capteurValuesBoolean">
+      <button
+        [ngClass]="
+          capteurValueBoolean.capteurBooleanValue
+            ? 'btn-primary btn-true'
+            : ' btn-primary btn-false'
+        "
+      >
+        {{ capteurValueBoolean.capteur.capteurNom }} :
+        {{ capteurValueBoolean.capteurBooleanValue }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="lastCapteurValue">
+  <div class="sub-lastCapteurValue">
+    <h2>Autres</h2>
+    <div *ngFor="let capteurValue of capteurValues">
+      <div *ngIf="capteurValue.capteur.capteurType == capteurType.AUTRE">
+        <button
+          class="btn-primary"
+          [routerLink]="[
+            '/machine',
+            capteurValue.machineId,
+            'capteur',
+            capteurValue.capteur.capteurId,
+            'history'
+          ]"
+        >
+          {{ capteurValue.capteur.capteurNom }} :
+          {{ capteurValue.capteurValue }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

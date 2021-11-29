@@ -8,32 +8,35 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatTabsModule } from "@angular/material/tabs";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ToastrModule } from "ngx-toastr";
 import { ChartModule } from "primeng/chart";
+import { DialogModule } from "primeng/dialog";
+import { DropdownModule } from "primeng/dropdown";
+import { MultiSelectModule } from "primeng/multiselect";
+import { TableModule } from "primeng/table";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { IsSignedInGuard } from "./guard/isSignedGuard";
 import { RoleGuard } from "./guard/role.guard";
 import { AuthInterceptor } from "./helpers/auth.interceptor";
 import { AdministrationComponent } from "./modules/Back-office/administration/administration.component";
+import { ListeEntreprisesComponent } from "./modules/Back-office/administration/liste-entreprises/liste-entreprises.component";
+import { ListeMachinesComponent } from "./modules/Back-office/administration/liste-machines/liste-machines.component";
+import { ListeUtilisateursComponent } from "./modules/Back-office/administration/liste-utilisateurs/liste-utilisateurs.component";
 import { HomeComponent } from "./modules/Back-office/home/home.component";
 import { ProfileComponent } from "./modules/Back-office/profile/profile.component";
 import { CapteurChartComponent } from "./modules/Buisiness-Intelligence/capteur-chart/capteur-chart.component";
-import { LastCapteurValueComponent } from "./modules/Buisiness-Intelligence/last-capteur-value/last-capteur-value.component";
-import { LineChartComponent } from "./modules/Buisiness-Intelligence/line-chart/line-chart.component";
-import { MatChipsAutocompleteComponent } from "./modules/Buisiness-Intelligence/mat-chips-autocomplete/mat-chips-autocomplete.component";
-import { MatDatePickerComponent } from "./modules/Buisiness-Intelligence/mat-date-picker/mat-date-picker.component";
+import { CapteurHistoryTableComponent } from "./modules/Buisiness-Intelligence/capteur-chart/capteur-history-table/capteur-history-table.component";
+import { LineChartComponent } from "./modules/Buisiness-Intelligence/capteur-chart/line-chart/line-chart.component";
+import { MatChipsAutocompleteComponent } from "./modules/Buisiness-Intelligence/capteur-chart/mat-chips-autocomplete/mat-chips-autocomplete.component";
+import { MatDatePickerComponent } from "./modules/Buisiness-Intelligence/capteur-chart/mat-date-picker/mat-date-picker.component";
+import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
 import { HeaderComponent } from "./modules/header/header.component";
 import { LoginComponent } from "./modules/login/login.component";
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ListeUtilisateursComponent } from './modules/Back-office/administration/liste-utilisateurs/liste-utilisateurs.component';
-import { ListeEntreprisesComponent } from './modules/Back-office/administration/liste-entreprises/liste-entreprises.component';
-import { DropdownModule } from 'primeng/dropdown';
-import { DialogModule } from 'primeng/dialog';
-import { ListeMachinesComponent } from './modules/Back-office/administration/liste-machines/liste-machines.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +46,7 @@ import { ListeMachinesComponent } from './modules/Back-office/administration/lis
     CapteurChartComponent,
     ProfileComponent,
     AdministrationComponent,
-    LastCapteurValueComponent,
+    CapteurValueComponent,
     CapteurChartComponent,
     LineChartComponent,
     MatChipsAutocompleteComponent,
@@ -51,6 +54,7 @@ import { ListeMachinesComponent } from './modules/Back-office/administration/lis
     ListeUtilisateursComponent,
     ListeEntreprisesComponent,
     ListeMachinesComponent,
+    CapteurHistoryTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,9 @@ import { ListeMachinesComponent } from './modules/Back-office/administration/lis
     MatIconModule,
     MultiSelectModule,
     DropdownModule,
-    DialogModule
+    DialogModule,
+    MatTabsModule,
+    TableModule,
   ],
   providers: [
     RoleGuard,
@@ -80,4 +86,4 @@ import { ListeMachinesComponent } from './modules/Back-office/administration/lis
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

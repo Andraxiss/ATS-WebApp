@@ -3,8 +3,9 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { MatChipInputEvent } from "@angular/material/chips";
+import { ToastrService } from "ngx-toastr";
 import { Capteur } from "src/app/models/Capteur";
-import { CapteurValueService } from "../../../services/capteur-value.service";
+import { CapteurValueService } from "../../../../services/capteur-value.service";
 
 @Component({
   selector: "app-mat-chips-autocomplete",
@@ -28,24 +29,47 @@ export class MatChipsAutocompleteComponent implements OnInit {
 
   @ViewChild("capteurInput") capteurInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private capteurValueService: CapteurValueService) {}
+  constructor(
+    private capteurValueService: CapteurValueService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.availableCapteurs.forEach((c) => {
-      this.availableCapteursNames.push(c.capteur_nom);
+      this.availableCapteursNames.push(c.capteurNom);
     });
-    this.toBePrintedCapteurName.push(this.currentCapteur.capteur_nom);
+    this.toBePrintedCapteurName.push(this.currentCapteur.capteurNom);
   }
 
   add(event: MatChipInputEvent): void {
+    //Launch when capteur is written
     const value = (event.value || "").trim();
-    // Add our fruit
     if (value) {
-      this.toBePrintedCapteurName.push(value);
+      if (!this.toBePrintedCapteurName.includes(value)) {
+        this.toBePrintedCapteurName.push(value);
+        this.addNewCapteurToChart(value);
+      } else {
+        this.toastr.error("Ce capteur à déjà été choisi");
+      }
     }
-    this.addNewCapteurToChart(value);
+
     // Clear the input value
     event.chipInput!.clear();
+    this.capteurCtrl.setValue(null);
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    //Launch when capteur selected by click
+    if (event.option.viewValue) {
+      if (!this.toBePrintedCapteurName.includes(event.option.viewValue)) {
+        this.toBePrintedCapteurName.push(event.option.viewValue);
+        this.addNewCapteurToChart(event.option.viewValue);
+      } else {
+        this.toastr.error("Ce capteur à déjà été choisi");
+      }
+    }
+
+    this.capteurInput.nativeElement.value = "";
     this.capteurCtrl.setValue(null);
   }
 
@@ -59,22 +83,20 @@ export class MatChipsAutocompleteComponent implements OnInit {
   }
 
   addNewCapteurToChart(capteurName: String) {
-    let capteurIdToPrint = this.availableCapteurs.filter((v) => v.capteur_nom === capteurName)[0]
-      .capteur_id;
-    this.capteurValueService.getCapteurHistory(this.machineId, capteurIdToPrint);
+    let capteurIdToPrint = this.availableCapteurs.filter(
+      (v) => v.capteurNom === capteurName
+    )[0].capteurId;
+    this.capteurValueService.loadCapteurHistory(
+      this.machineId,
+      capteurIdToPrint
+    );
   }
 
   removeCapteurFromChart(capteurName: String) {
-    let capteurIdToremove = this.availableCapteurs.filter((v) => v.capteur_nom === capteurName)[0]
-      .capteur_id;
+    let capteurIdToremove = this.availableCapteurs.filter(
+      (v) => v.capteurNom === capteurName
+    )[0].capteurId;
     this.capteurValueService.removeCapteurHistory(capteurIdToremove);
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.toBePrintedCapteurName.push(event.option.viewValue);
-    this.addNewCapteurToChart(event.option.viewValue);
-    this.capteurInput.nativeElement.value = "";
-    this.capteurCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {

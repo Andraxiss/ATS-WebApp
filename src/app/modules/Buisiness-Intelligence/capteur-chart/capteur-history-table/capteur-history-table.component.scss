@@ -1,0 +1,27 @@
+@import "../../../../../variables/colors.scss";
+
+.capteur-value-table {
+  width: 95%;
+  margin: auto;
+  vertical-align: middle;
+  text-align: center;
+  border-top: solid $shadowgrey 0.1em;
+  border-right: solid $shadowgrey 0.1em;
+  .capteur-value-row {
+    .capteur-value-case {
+      border-bottom: solid $shadowgrey 0.1em;
+      border-left: solid $shadowgrey 0.1em;
+      padding: auto;
+      margin: auto;
+    }
+  }
+  .date-releve {
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  .date-releve:hover {
+    background-color: $lightyellowSecondaryBg;
+  }
+}

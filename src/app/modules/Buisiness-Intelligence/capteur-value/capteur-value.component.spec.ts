@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { LastCapteurValueComponent } from "./last-capteur-value.component";
+import { CapteurValueComponent } from "./capteur-value.component";
 
 describe("LastCapteurValueComponent", () => {
-  let component: LastCapteurValueComponent;
-  let fixture: ComponentFixture<LastCapteurValueComponent>;
+  let component: CapteurValueComponent;
+  let fixture: ComponentFixture<CapteurValueComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LastCapteurValueComponent],
+      declarations: [CapteurValueComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LastCapteurValueComponent);
+    fixture = TestBed.createComponent(CapteurValueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
