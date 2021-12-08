@@ -1,0 +1,42 @@
+<div *ngIf="entreprises && machines" class="table">
+    <div class="header-admin">
+        <div (click)="displayModal()" class="btn-primary">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            <span> Ajouter une machine</span>
+        </div>
+    </div>
+    <table *ngIf="machines.length > 0" role="grid">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Entreprises</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let machine of machines">
+                <td>{{machine.nom}}</td>
+                <td>
+                    <p-dropdown *ngIf="machine.nom" [style]="{'width': '100%'}" (onChange)="updateMachine(machine)"
+                        [(ngModel)]="machine.entreprise" placeholder="Entreprises" optionLabel="nom"
+                        [options]="entreprises" [(ngModel)]="machine.entreprise" [showClear]="true">
+                    </p-dropdown>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</div>
+
+<p-dialog close header="Nouvelle machine" [(visible)]="isModalDisplayed">
+    <form *ngIf="machineForm" [formGroup]="machineForm" (ngSubmit)="submit()">
+        <div class="input-with-label">
+            <label for="prenom">Nom*</label>
+            <input autocomplete="off" type="text" formControlName="nom" name="nom">
+        </div>
+
+        <div class="button-submit">
+            <button type="submit" class="btn-primary">Créer</button>
+        </div>
+    </form>
+</p-dialog>

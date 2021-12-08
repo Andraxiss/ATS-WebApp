@@ -14,12 +14,19 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ToastrModule } from "ngx-toastr";
 import { ChartModule } from "primeng/chart";
+import { DialogModule } from "primeng/dialog";
+import { DropdownModule } from "primeng/dropdown";
+import { MultiSelectModule } from "primeng/multiselect";
 import { TableModule } from "primeng/table";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { IsSignedInGuard } from "./guard/isSignedGuard";
 import { RoleGuard } from "./guard/role.guard";
 import { AuthInterceptor } from "./helpers/auth.interceptor";
+import { AdministrationComponent } from "./modules/Back-office/administration/administration.component";
+import { ListeEntreprisesComponent } from "./modules/Back-office/administration/liste-entreprises/liste-entreprises.component";
+import { ListeMachinesComponent } from "./modules/Back-office/administration/liste-machines/liste-machines.component";
+import { ListeUtilisateursComponent } from "./modules/Back-office/administration/liste-utilisateurs/liste-utilisateurs.component";
 import { HomeComponent } from "./modules/Back-office/home/home.component";
 import { ProfileComponent } from "./modules/Back-office/profile/profile.component";
 import { CapteurChartComponent } from "./modules/Buisiness-Intelligence/capteur-chart/capteur-chart.component";
@@ -30,29 +37,37 @@ import { MatDatePickerComponent } from "./modules/Buisiness-Intelligence/capteur
 import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
 import { HeaderComponent } from "./modules/header/header.component";
 import { LoginComponent } from "./modules/login/login.component";
+import { MachinesComponent } from './modules/Back-office/machines/machines.component';
+import { EntrepriseComponent } from './modules/Back-office/entreprise/entreprise.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
     HeaderComponent,
+    CapteurChartComponent,
     ProfileComponent,
+    AdministrationComponent,
     CapteurValueComponent,
     CapteurChartComponent,
     LineChartComponent,
     MatChipsAutocompleteComponent,
     MatDatePickerComponent,
+    ListeUtilisateursComponent,
+    ListeEntreprisesComponent,
+    ListeMachinesComponent,
     CapteurHistoryTableComponent,
+    MachinesComponent,
+    EntrepriseComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
-    FormsModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     ChartModule,
     MatChipsModule,
     ToastrModule.forRoot(),
@@ -62,6 +77,9 @@ import { LoginComponent } from "./modules/login/login.component";
     MatNativeDateModule,
     MatInputModule,
     MatIconModule,
+    MultiSelectModule,
+    DropdownModule,
+    DialogModule,
     MatTabsModule,
     TableModule,
   ],

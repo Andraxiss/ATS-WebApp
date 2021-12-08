@@ -9,11 +9,32 @@ import { UserService } from '../services/user.service';
 export class RoleGuard implements CanActivate {
   constructor(public userService: UserService, public router: Router) {
   }
-  canActivate(): boolean {
+
+
+  isUserInRoles(user: UserDto, roles: number[]): boolean {
+    if (user) {
+      if (!roles || roles.length === 0) {
+        return true;
+      }
+      return user.roles!.some(r => roles.includes(r.roleId!));
+    }
+    return false;
+  }
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    const roles = next.data.roles;
+    const user = this.userService.getCurrentUserStorage();
     if (!this.userService.isAuthenticated()) {
       this.router.navigate(['login']);
       return false;
     }
-    return true;
+    else if (this.isUserInRoles(user, roles)) {
+      return true
+    } else {
+      this.router.navigate(['/'])
+      return false;
+    }
   }
 }

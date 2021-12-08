@@ -1,6 +1,6 @@
 <div class="logo"></div>
 
-<div class="routes">
+<div *ngIf="currentUser" class="routes">
   <div
     [ngClass]="{ focused: currentRoute === 'home' || currentRoute === '' }"
     class="route"
@@ -8,21 +8,30 @@
     <fa-icon [icon]="faHome"></fa-icon>
     <a routerLink="/">Accueil</a>
   </div>
-  <div class="route">
+  <div [ngClass]="{ focused: currentRoute === 'machines' }" class="route">
     <fa-icon [icon]="faHdd"></fa-icon>
     <a
-      [routerLink]="['/machine/1/capteurs-value/last-value']"
+      [routerLink]="['/machines']"
       routerLinkActive="router-link-active"
       >Machines</a
+    >
+  </div>
+
+  <div [ngClass]="{ focused: currentRoute === 'entreprise' }" class="route">
+    <fa-icon [icon]="faBuilding"></fa-icon>
+    <a
+      routerLink="/entreprise"
+      routerLinkActive="router-link-active"
+      >Entreprise</a
     >
   </div>
   <div [ngClass]="{ focused: currentRoute === 'profile' }" class="route">
     <fa-icon [icon]="faUser"></fa-icon>
     <a routerLink="/profile">Profil</a>
   </div>
-  <div class="route">
-    <fa-icon [icon]="faCog"></fa-icon>
-    <a>Paramètres</a>
+  <div *ngIf="isAdmin()" [ngClass]="{ focused: currentRoute.includes('admin')}" class="route">
+    <fa-icon [icon]="faAdmin"></fa-icon>
+    <a routerLink="/admin">Administration</a>
   </div>
 </div>
 

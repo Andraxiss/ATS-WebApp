@@ -1,0 +1,74 @@
+@import "../../../../../variables/colors.scss";
+@import "../../../../../variables/theme.scss";
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+h1 {
+    margin: 15px;
+}
+
+.header-admin {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 10px;
+
+    fa-icon {
+        margin-right: 5px;
+    }
+}
+
+::ng-deep.p-dialog {
+    width: 600px;
+    height: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    thead {
+        text-align: center;
+        padding: 0.5em 0.75em;
+        box-sizing: border-box;
+
+        th {
+            background-color: #fff;
+            padding: 10px;
+            color: $lightyellowAmplified;
+            border: none;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+    }
+
+    tbody {
+        text-align: center;
+        padding: 0.5em 0.75em;
+        box-sizing: border-box;
+        tr {
+            td {
+                padding: 10px;
+                color: #333;
+                border: 1px solid $lightGreyBorder;
+                cursor: default;
+                overflow-wrap: break-word;
+
+                .test {
+                    width: 100%;
+                }
+
+                &#redirect-user {
+                    &:hover {
+                        color: $lightyellowAmplified;
+                        transition: all ease-in 0.3s;
+                    }
+                    transition: all ease-in 0.3s;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

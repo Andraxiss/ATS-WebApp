@@ -3,6 +3,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { UserDto } from '../models/UserDto';
+import { UserApiService } from './API/user-api.service';
 
 const jwtHelper = new JwtHelperService();
 
@@ -12,12 +13,34 @@ const jwtHelper = new JwtHelperService();
 export class UserService {
 
   private $currentUser: BehaviorSubject<UserDto> = new BehaviorSubject<UserDto>({});
+  private $allUsers: BehaviorSubject<UserDto[]> = new BehaviorSubject<UserDto[]>([]);
   private isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  constructor(private toastr : ToastrService) {
-    if(localStorage.getItem('currentUser')){
+  constructor(private toastr: ToastrService, private userApiService: UserApiService) {
+    this.initCurrentUser();
+  }
+
+  public getAllUsers() {
+    this.userApiService.getAllUsers().subscribe(u => {
+      this.$allUsers.next(u);
+    })
+    return this.$allUsers;
+  }
+
+  public initCurrentUser() {
+    if (localStorage.getItem('currentUser')) {
       const currentUser = JSON.parse(localStorage.getItem('currentUser')!) as UserDto;
-      this.setCurrentUser(currentUser);
+      const id = Number(currentUser.userId!);
+      this.userApiService.getUserById(id).subscribe(user => {
+        this.setCurrentUser(user);
+      }, err => console.log(err))
     }
+  }
+
+  public createUser(user: UserDto) {
+    this.userApiService.createUser(user).subscribe(e => {
+      this.toastr.success('Modification enregistrée.', 'Utilisateur créé !');
+      this.getAllUsers();
+    }, err => console.log(err))
   }
 
   public isAuthenticated(): boolean {
@@ -29,6 +52,34 @@ export class UserService {
     } else return false;
   }
 
+  public updateCurrentUser(user: UserDto) {
+    this.userApiService.updateUser(user).subscribe(e => {
+      this.toastr.success('Modification enregistrée.', 'Mise à jour réussie !');
+      this.setCurrentUser(e);
+      localStorage.removeItem('currentUser');
+      localStorage.setItem('currentUser', JSON.stringify(e))
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  public updateUser(user: UserDto) {
+    this.userApiService.updateUser(user).subscribe(e => {
+      if (e.userId === this.$currentUser.getValue().userId) {
+        this.initCurrentUser();
+      }
+      const allUsers = this.$allUsers.getValue().filter(e => e.userId !== user.userId);
+      this.$allUsers.next([...allUsers, e]);
+      this.toastr.success('Modification enregistrée.', 'Mise à jour réussie !');
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  public getCurrentUserStorage(){
+    return JSON.parse(localStorage.getItem('currentUser')!) as UserDto;
+  }
+
 
   public logout() {
     localStorage.clear();
@@ -37,11 +88,18 @@ export class UserService {
   }
 
   public setCurrentUser(user: UserDto) {
+    console.log('test');
+    localStorage.setItem('currentUser', JSON.stringify(user));
     this.$currentUser.next(user);
   }
 
   public getCurrentUser() {
+    this.initCurrentUser();
     return this.$currentUser;
+  }
+
+  public getUserById(id : number){
+    return this.userApiService.getUserById(id);
   }
 
 

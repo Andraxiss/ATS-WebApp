@@ -1,5 +1,5 @@
-<h1>{{this.title}} {{ machineId }}</h1>
-<h2>{{this.subTitle}} {{ capteurValues[0]?.dateReleve }}</h2>
+<h1>{{ this.title }} {{ machineId }}</h1>
+<h2>{{ this.subTitle }} {{ capteurValues[0]?.dateReleve }}</h2>
 <div class="lastCapteurValue">
   <div class="sub-lastCapteurValue">
     <h2>Temperatures</h2>
@@ -9,7 +9,7 @@
           class="btn-primary"
           [routerLink]="[
             '/machine',
-            capteurValue.machineId,
+            capteurValue.machine.machineId,
             'capteur',
             capteurValue.capteur.capteurId,
             'history'
@@ -30,7 +30,7 @@
           class="btn-primary"
           [routerLink]="[
             '/machine',
-            capteurValue.machineId,
+            capteurValue.machine.machineId,
             'capteur',
             capteurValue.capteur.capteurId,
             'history'
@@ -51,7 +51,11 @@
       <div *ngIf="capteurValue.capteur.capteurType == capteurType.HUMIDITE">
         <button
           class="btn-primary"
-          [routerLink]="['/machine', capteurValue.machineId, capteurValue.capteur.capteurId]"
+          [routerLink]="[
+            '/machine',
+            capteurValue.machine.machineId,
+            capteurValue.capteur.capteurId
+          ]"
         >
           {{ capteurValue.capteur.capteurNom }} :
           {{ capteurValue.capteurValue }}
@@ -85,7 +89,7 @@
           class="btn-primary"
           [routerLink]="[
             '/machine',
-            capteurValue.machineId,
+            capteurValue.machine.machineId,
             'capteur',
             capteurValue.capteur.capteurId,
             'history'

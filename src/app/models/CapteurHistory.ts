@@ -1,7 +1,8 @@
+import { Machine } from "./Machine";
 export interface CapteurHistory {
   capteurValueId: number;
   capteurValue: DoubleRange;
-  machineId: number;
+  machine: Machine;
   capteurId: number;
   dateReleve: Date;
   capteurNom: string;
