@@ -1,10 +1,8 @@
-import { E } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject } from 'rxjs';
-import { timeout } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { Role } from 'src/app/enum/role.enum';
 import { EntrepriseDto } from 'src/app/models/EntrepriseDto';
 import { MachineDto } from 'src/app/models/MachineDto';
 import { RoleDto } from 'src/app/models/RoleDto';
@@ -16,58 +14,50 @@ import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-liste-entreprises',
-  templateUrl: './liste-entreprises.component.html',
-  styleUrls: ['./liste-entreprises.component.scss']
+  selector: 'app-entreprise',
+  templateUrl: './entreprise.component.html',
+  styleUrls: ['./entreprise.component.scss']
 })
-export class ListeEntreprisesComponent implements OnInit {
+export class EntrepriseComponent implements OnInit {
 
-  public entreprises: EntrepriseDto[] = [];
-  public machines: MachineDto[] = [];
-  public roles: RoleDto[] = [];
-  public newEntreprise: EntrepriseDto = {};
   invalidField: string[] = [];
-  public isModalDisplayed: boolean = false;
-  constructor(private userApiService: UserApiService,
-    private roleService: RoleService,
+  constructor(
     private entrepriseService: EntrepriseService,
-    private machineService: MachineService,
+    private userService: UserService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService) {
   }
 
-  faPlus = faPlus;
+  public currentUser: UserDto = {}
+  subscription: Subscription = new Subscription;
   public entrepriseForm?: FormGroup;
   ngOnInit(): void {
-    this.entrepriseService.getAllEntreprise().subscribe(u => {
-      this.entreprises = u;
+    this.subscription = this.userService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
+      console.log(this.currentUser)
+      this.initForm();
     }, err => console.log(err))
+  }
 
-    this.initForm();
+  isAdmin() {
+    return this.currentUser.roles?.some(r => r.roleId === Role.ADMIN) ?? false;
   }
 
   initForm() {
     this.entrepriseForm = this.formBuilder.group({
-      nom: [this.newEntreprise.nom, Validators.required],
-      siret: [this.newEntreprise.siret, Validators.required],
-      adresse: [this.newEntreprise.adresse, [Validators.required]],
+      nom: [{ value: this.currentUser.entreprise?.nom, disabled: !this.isAdmin() }, Validators.required],
+      siret: [{ value: this.currentUser.entreprise?.siret, disabled: !this.isAdmin() }, Validators.required],
+      adresse: [{ value: this.currentUser.entreprise?.adresse, disabled: !this.isAdmin() }, [Validators.required]],
     })
   }
-
-  resetForm() {
-    this.entrepriseForm?.reset();
-  }
-
 
   submit() {
     if (this.entrepriseForm?.valid) {
       const formValue = this.entrepriseForm?.value;
-      this.newEntreprise.nom = formValue['nom'];
-      this.newEntreprise.siret = formValue['siret'];
-      this.newEntreprise.adresse = formValue['adresse'];
-      this.entrepriseService.createEntreprise(this.newEntreprise);
-      this.isModalDisplayed = false;
-      this.resetForm();
+      this.currentUser.entreprise!.nom = formValue['nom'];
+      this.currentUser.entreprise!.siret = formValue['siret'];
+      this.currentUser.entreprise!.adresse = formValue['adresse'];
+      this.entrepriseService.updateEntreprise(this.currentUser.entreprise!);
 
     } else {
       let a = this.entrepriseForm!.controls;
@@ -84,9 +74,9 @@ export class ListeEntreprisesComponent implements OnInit {
 
   }
 
-  displayModal() {
-    this.isModalDisplayed = !this.isModalDisplayed;
-  }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe;
+  }
 
 }

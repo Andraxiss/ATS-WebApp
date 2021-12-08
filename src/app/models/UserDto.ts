@@ -1,3 +1,5 @@
+import { EntrepriseDto } from "./EntrepriseDto";
+import { MachineDto } from "./MachineDto";
 import { RoleDto } from "./RoleDto";
 
 export interface UserDto {
@@ -8,4 +10,6 @@ export interface UserDto {
     prenom?: string;
     poste?: string;
     roles?: RoleDto[];
+    machines?: MachineDto[];
+    entreprise?: EntrepriseDto;
 }

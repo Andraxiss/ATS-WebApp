@@ -37,6 +37,8 @@ import { MatDatePickerComponent } from "./modules/Buisiness-Intelligence/capteur
 import { CapteurValueComponent } from "./modules/Buisiness-Intelligence/capteur-value/capteur-value.component";
 import { HeaderComponent } from "./modules/header/header.component";
 import { LoginComponent } from "./modules/login/login.component";
+import { MachinesComponent } from './modules/Back-office/machines/machines.component';
+import { EntrepriseComponent } from './modules/Back-office/entreprise/entreprise.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +57,8 @@ import { LoginComponent } from "./modules/login/login.component";
     ListeEntreprisesComponent,
     ListeMachinesComponent,
     CapteurHistoryTableComponent,
+    MachinesComponent,
+    EntrepriseComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,14 +16,7 @@ export class UserService {
   private $allUsers: BehaviorSubject<UserDto[]> = new BehaviorSubject<UserDto[]>([]);
   private isAuth$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private toastr: ToastrService, private userApiService: UserApiService) {
-    if (localStorage.getItem('currentUser')) {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser')!) as UserDto;
-      const id = Number(currentUser.userId!);
-      console.log(currentUser);
-      this.userApiService.getUserById(id).subscribe(user => {
-        this.setCurrentUser(user);
-      }, err => console.log(err))
-    }
+    this.initCurrentUser();
   }
 
   public getAllUsers() {
@@ -31,6 +24,16 @@ export class UserService {
       this.$allUsers.next(u);
     })
     return this.$allUsers;
+  }
+
+  public initCurrentUser() {
+    if (localStorage.getItem('currentUser')) {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser')!) as UserDto;
+      const id = Number(currentUser.userId!);
+      this.userApiService.getUserById(id).subscribe(user => {
+        this.setCurrentUser(user);
+      }, err => console.log(err))
+    }
   }
 
   public createUser(user: UserDto) {
@@ -61,12 +64,20 @@ export class UserService {
   }
 
   public updateUser(user: UserDto) {
-    console.log(user);
     this.userApiService.updateUser(user).subscribe(e => {
+      if (e.userId === this.$currentUser.getValue().userId) {
+        this.initCurrentUser();
+      }
+      const allUsers = this.$allUsers.getValue().filter(e => e.userId !== user.userId);
+      this.$allUsers.next([...allUsers, e]);
       this.toastr.success('Modification enregistrée.', 'Mise à jour réussie !');
     }, err => {
       console.log(err);
     })
+  }
+
+  public getCurrentUserStorage(){
+    return JSON.parse(localStorage.getItem('currentUser')!) as UserDto;
   }
 
 
@@ -77,11 +88,18 @@ export class UserService {
   }
 
   public setCurrentUser(user: UserDto) {
+    console.log('test');
+    localStorage.setItem('currentUser', JSON.stringify(user));
     this.$currentUser.next(user);
   }
 
   public getCurrentUser() {
+    this.initCurrentUser();
     return this.$currentUser;
+  }
+
+  public getUserById(id : number){
+    return this.userApiService.getUserById(id);
   }
 
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
-import { faCog, faHdd, faHome, faSignOutAlt, faUser, faUserShield } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faCog, faHdd, faHome, faSignOutAlt, faUser, faUserShield } from '@fortawesome/free-solid-svg-icons';
+import { Role } from 'src/app/enum/role.enum';
+import { UserDto } from 'src/app/models/UserDto';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,9 +13,11 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit {
 
   //declaration icons
+  currentUser: UserDto = {}
   faHome = faHome;
   faAdmin = faUserShield;
   faHdd = faHdd;
+  faBuilding = faBuilding;
   faSignOut = faSignOutAlt;
   faUser = faUser;
   currentRoute = 'home';
@@ -34,6 +38,13 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.getCurrentUser().subscribe(e => {
+      this.currentUser = e;
+    })
+  }
+
+  isAdmin() {
+    return this.currentUser.roles?.some(r => r.roleId === Role.ADMIN)
   }
 
   logout() {

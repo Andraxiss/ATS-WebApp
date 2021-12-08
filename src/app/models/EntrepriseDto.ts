@@ -5,5 +5,5 @@ export interface EntrepriseDto {
     nom?: string;
     adresse?: string;
     siret?: string;
-    machines?: MachineDto[]
+    machines?: MachineDto[];
 }

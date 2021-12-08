@@ -1,4 +1,4 @@
-<div *ngIf="users && roles" class="table">
+<div *ngIf="users && roles && entreprises" class="table">
     <div class="header-admin">
         <div (click)="displayModal()" class="btn-primary">
             <fa-icon [icon]="faPlus"></fa-icon>
@@ -11,12 +11,13 @@
                 <th>Nom</th>
                 <th>Adresse mail</th>
                 <th>Rôles</th>
+                <th>Entreprise</th>
                 <th>Accès machines</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of users">
-                <td>{{user.nom + ' ' + user.prenom}}</td>
+                <td id="redirect-user" [routerLink]="['/utilisateur/'+user.userId]">{{user.nom + ' ' + user.prenom}}</td>
                 <td>{{user.email}}</td>
                 <td>
                     <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" [options]="roles"
@@ -24,9 +25,18 @@
                     </p-multiSelect>
                 </td>
                 <td>
-                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" optionLabel="name"
-                        optionValue="code"></p-multiSelect>
+                    <p-dropdown [style]="{'width': '100%'}" (onChange)="updateUser(user)" [(ngModel)]="user.entreprise"
+                        placeholder="Entreprises" optionLabel="nom" dataKey="entrepriseId" [options]="entreprises"
+                        [showClear]="true">
+                    </p-dropdown>
                 </td>
+                <td>
+                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false"
+                        [options]="user.entreprise?.machines!" (onChange)="updateUser(user)" dataKey="machineId"
+                        [(ngModel)]="user.machines" placeholder="Machines" optionLabel="nom">
+                    </p-multiSelect>
+                </td>
+
             </tr>
 
         </tbody>

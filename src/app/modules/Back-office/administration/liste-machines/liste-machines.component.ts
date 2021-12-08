@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { EntrepriseDto } from 'src/app/models/EntrepriseDto';
 import { MachineDto } from 'src/app/models/MachineDto';
 import { RoleDto } from 'src/app/models/RoleDto';
 import { UserApiService } from 'src/app/services/API/user-api.service';
+import { EntrepriseService } from 'src/app/services/entreprise.service';
 import { MachineService } from 'src/app/services/machine.service';
 import { RoleService } from 'src/app/services/role.service';
 
@@ -21,22 +23,28 @@ export class ListeMachinesComponent implements OnInit {
   public isModalDisplayed: boolean = false;
   constructor(
     private machineService: MachineService,
+    private entrepriseService: EntrepriseService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService) {
   }
 
   faPlus = faPlus;
   public machineForm?: FormGroup;
+  public entreprises?: EntrepriseDto[] = [];
   ngOnInit(): void {
     this.machineService.getAllMachines().subscribe(u => {
       this.machines = u;
       console.log(this.machines);
     }, err => console.log(err))
 
+    this.entrepriseService.getAllEntreprise().subscribe(e => {
+      this.entreprises = e;
+    }, err => console.log(err))
+
     this.initForm();
   }
 
-  updateUser(machine: MachineDto) {
+  updateMachine(machine: MachineDto) {
     this.machineService.updateMachine(machine);
   }
 

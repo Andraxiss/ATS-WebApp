@@ -54,9 +54,19 @@ table {
                 color: #333;
                 border: 1px solid $lightGreyBorder;
                 cursor: default;
+                overflow-wrap: break-word;
 
                 .test {
                     width: 100%;
+                }
+
+                &#redirect-user {
+                    &:hover {
+                        color: $lightyellowAmplified;
+                        transition: all ease-in 0.3s;
+                    }
+                    transition: all ease-in 0.3s;
+                    cursor: pointer;
                 }
             }
         }

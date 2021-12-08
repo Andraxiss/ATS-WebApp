@@ -11,7 +11,7 @@ import { EntrepriseApiService } from './API/entreprise-api.service';
 })
 export class EntrepriseService {
 
-    private $allEntreprise: BehaviorSubject<UserDto[]> = new BehaviorSubject<UserDto[]>([]);
+    private $allEntreprise: BehaviorSubject<EntrepriseDto[]> = new BehaviorSubject<EntrepriseDto[]>([]);
     constructor(private toastr: ToastrService, private entrepriseApiService: EntrepriseApiService) {
 
     }
@@ -23,6 +23,8 @@ export class EntrepriseService {
         return this.$allEntreprise;
     }
 
+
+
     public createEntreprise(entreprise: EntrepriseDto) {
         this.entrepriseApiService.createEntreprise(entreprise).subscribe(e => {
             this.toastr.success('Modification enregistrée.', 'Entreprise créée !');
@@ -30,8 +32,9 @@ export class EntrepriseService {
         }, err => console.log(err))
     }
 
-
-
+    public getAvailableEnteprises(){
+        
+    }
 
     public updateEntreprise(entreprise: EntrepriseDto) {
         this.entrepriseApiService.updateEntreprise(entreprise).subscribe(e => {

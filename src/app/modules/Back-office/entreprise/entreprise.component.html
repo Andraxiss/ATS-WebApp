@@ -1,0 +1,32 @@
+<h1 *ngIf="currentUser.entreprise" class="username">{{currentUser.entreprise?.nom}}</h1>
+<div class="profile">
+    <div *ngIf="currentUser.entreprise" class="sub-profile">
+        <h2>Informations</h2>
+        <form *ngIf="entrepriseForm" [formGroup]="entrepriseForm" (ngSubmit)="submit()">
+            <div class="input-with-label">
+                <label for="nom">Nom*</label>
+                <input autocomplete="off" type="text" formControlName="nom" name="nom">
+            </div>
+            <div class="input-with-label">
+                <label for="adresse">Adresse*</label>
+                <input autocomplete="off" type="text" formControlName="adresse" name="nom">
+            </div>
+            <div class="input-with-label">
+                <label for="siret">Siret*</label>
+                <input autocomplete="off" type="text" formControlName="siret" name="siret">
+            </div>
+            <div *ngIf="isAdmin()" class="button-submit">
+                <button type="submit" class="btn-primary">Modifier</button>
+            </div>
+        </form>
+
+    </div>
+
+    <div *ngIf="currentUser.entreprise  === null " class="profile">
+        <div class="none">
+            <h4>Aucune entreprise ne vous a été attribuée</h4>
+        </div>
+
+    </div>
+
+</div>

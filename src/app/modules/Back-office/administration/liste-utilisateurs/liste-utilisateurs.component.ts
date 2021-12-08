@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { EntrepriseDto } from 'src/app/models/EntrepriseDto';
+import { MachineDto } from 'src/app/models/MachineDto';
 import { RoleDto } from 'src/app/models/RoleDto';
 import { UserDto } from 'src/app/models/UserDto';
 import { UserApiService } from 'src/app/services/API/user-api.service';
+import { EntrepriseService } from 'src/app/services/entreprise.service';
+import { MachineService } from 'src/app/services/machine.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -22,12 +26,14 @@ export class ListeUtilisateursComponent implements OnInit {
   constructor(private userApiService: UserApiService,
     private roleService: RoleService,
     private userService: UserService,
+    private entrepriseService: EntrepriseService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService) {
   }
 
   faPlus = faPlus;
   public userForm?: FormGroup;
+  public entreprises: EntrepriseDto[] = []
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(u => {
       this.users = u;
@@ -37,12 +43,26 @@ export class ListeUtilisateursComponent implements OnInit {
       this.roles = r;
     }, err => console.log(err))
 
+    this.entrepriseService.getAllEntreprise().subscribe(e => {
+      this.entreprises = e;
+    }, err => console.log(err))
+
+
+
+
     this.initForm();
 
   }
 
   updateUser(user: UserDto) {
+    //console.log(user);
     this.userService.updateUser(user);
+  }
+
+  updateUserEntreprise(user: UserDto, event: any) {
+    let entrepriseId = event.value;
+    user.entreprise = this.entreprises.find(e => e.entrepriseId === entrepriseId);
+    this.updateUser(user);
   }
 
   initForm() {
@@ -54,7 +74,7 @@ export class ListeUtilisateursComponent implements OnInit {
     })
   }
 
-  resetForm(){
+  resetForm() {
     this.userForm?.reset();
   }
 
@@ -69,7 +89,7 @@ export class ListeUtilisateursComponent implements OnInit {
       this.userService.createUser(this.newUser);
       this.isModalDisplayed = false;
       this.resetForm();
-      
+
     } else {
       let a = this.userForm!.controls;
       for (let control in a) {

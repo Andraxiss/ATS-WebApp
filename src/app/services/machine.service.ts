@@ -17,7 +17,6 @@ export class MachineService {
 
     public getAllMachines() {
         this.machineApiService.getAllMachines().subscribe(e => {
-            console.log(e);
             this.$allMachines.next(e);
         })
         return this.$allMachines;

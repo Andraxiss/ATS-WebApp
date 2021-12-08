@@ -1,4 +1,4 @@
-<div class="table">
+<div *ngIf="entreprises && machines" class="table">
     <div class="header-admin">
         <div (click)="displayModal()" class="btn-primary">
             <fa-icon [icon]="faPlus"></fa-icon>
@@ -13,11 +13,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let entreprise of machines">
-                <td>{{entreprise.nom}}</td>
+            <tr *ngFor="let machine of machines">
+                <td>{{machine.nom}}</td>
                 <td>
-                    <p-multiSelect *ngIf="entreprise.nom" [style]="{'width': '100%'}" [showToggleAll]="false"
-                        optionLabel="name" optionValue="code"></p-multiSelect>
+                    <p-dropdown *ngIf="machine.nom" [style]="{'width': '100%'}" (onChange)="updateMachine(machine)"
+                        [(ngModel)]="machine.entreprise" placeholder="Entreprises" optionLabel="nom"
+                        [options]="entreprises" [(ngModel)]="machine.entreprise" [showClear]="true">
+                    </p-dropdown>
                 </td>
             </tr>
 

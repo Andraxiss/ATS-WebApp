@@ -54,6 +54,7 @@ table {
                 color: #333;
                 border: 1px solid $lightGreyBorder;
                 cursor: default;
+                overflow-wrap: break-word;
 
                 .test {
                     width: 100%;

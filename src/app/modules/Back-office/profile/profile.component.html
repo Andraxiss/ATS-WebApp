@@ -23,16 +23,16 @@
     </div>
 
     <div class="sub-profile">
-        <h2>Authorisations</h2>
+        <h2>Autorisations</h2>
             <div class="input-with-label">
                 <label for="roles">Rôles</label>
-                <div class="roles" *ngFor="let role of currentUser.roles">
-                    <div class="role">{{role.nom| lowercase}}</div>
+                <div class="roles" >
+                    <div *ngFor="let role of currentUser.roles" class="role">{{role.nom| lowercase}}</div>
                 </div>
             </div>
             <div class="input-with-label">
                 <label for="entreprise">Entreprise</label>
-                <input readonly="true" name="entreprise">
+                <input [value]="currentUser.entreprise?.nom" readonly="true" name="entreprise">
             </div>
     </div>
 </div>

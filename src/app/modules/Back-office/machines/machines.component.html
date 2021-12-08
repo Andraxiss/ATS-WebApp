@@ -1,0 +1,15 @@
+<h1 class="title">Vos machines</h1>
+
+<div *ngIf="machines.length > 0" class="machines">
+    <div *ngFor="let machine of machines" class="machine">
+        <fa-icon [icon]="faServer"></fa-icon>
+        <h3>{{machine.nom}}</h3>
+        <button (click)="navigate(machine.machineId!)" class="btn-primary">Accéder</button>
+    </div>
+</div>
+
+<div *ngIf="machines.length === 0" class="machines">
+    <div class="machine">
+        <h4>Aucune machine ne vous a été attribuée.</h4>
+    </div>
+</div>
