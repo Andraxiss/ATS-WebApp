@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
         console.log(err);
       })
     } else {
-      console.log(this.loginForm?.controls);
       let a = this.loginForm!.controls;
       for (let control in a) {
         if (a[control].invalid) {

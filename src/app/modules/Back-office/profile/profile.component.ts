@@ -67,7 +67,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.userService.updateCurrentUser(this.currentUser)
       }
     } else {
-      console.log(this.userForm?.controls);
       let a = this.userForm!.controls;
       for (let control in a) {
         if (a[control].invalid) {

@@ -34,7 +34,6 @@ export class EntrepriseComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.userService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
-      console.log(this.currentUser)
       this.initForm();
     }, err => console.log(err))
   }

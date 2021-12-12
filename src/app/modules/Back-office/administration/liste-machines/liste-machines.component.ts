@@ -34,7 +34,6 @@ export class ListeMachinesComponent implements OnInit {
   ngOnInit(): void {
     this.machineService.getAllMachines().subscribe(u => {
       this.machines = u;
-      console.log(this.machines);
     }, err => console.log(err))
 
     this.entrepriseService.getAllEntreprise().subscribe(e => {

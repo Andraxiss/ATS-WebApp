@@ -1,4 +1,4 @@
-<div *ngIf="users && roles && entreprises" class="table">
+<div *ngIf="users && roles && entreprises && currentUser" class="table">
     <div class="header-admin">
         <div (click)="displayModal()" class="btn-primary">
             <fa-icon [icon]="faPlus"></fa-icon>
@@ -17,11 +17,13 @@
         </thead>
         <tbody>
             <tr *ngFor="let user of users">
-                <td id="redirect-user" [routerLink]="['/utilisateur/'+user.userId]">{{user.nom + ' ' + user.prenom}}</td>
+                <td id="redirect-user" [routerLink]="['/utilisateur/'+user.userId]">{{user.nom + ' ' + user.prenom}}
+                </td>
                 <td>{{user.email}}</td>
                 <td>
-                    <p-multiSelect [style]="{'width': '100%'}" [showToggleAll]="false" [options]="roles"
-                        (onChange)="updateUser(user)" [(ngModel)]="user.roles" placeholder="Roles" optionLabel="nom">
+                    <p-multiSelect optionDisabled="settable" dataKey="roleId" [disabled]="currentUser.userId === user.userId" [style]="{'width': '100%'}"
+                        [showToggleAll]="false" [options]="roles" (onChange)="updateUser(user)" [(ngModel)]="user.roles"
+                        placeholder="Roles" optionLabel="nom">
                     </p-multiSelect>
                 </td>
                 <td>
