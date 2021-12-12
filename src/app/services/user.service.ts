@@ -21,6 +21,7 @@ export class UserService {
 
   public getAllUsers() {
     this.userApiService.getAllUsers().subscribe(u => {
+      u.sort((elt1, elt2) => elt1.nom!.localeCompare(elt2.nom!))
       this.$allUsers.next(u);
     })
     return this.$allUsers;
@@ -69,14 +70,14 @@ export class UserService {
         this.initCurrentUser();
       }
       const allUsers = this.$allUsers.getValue().filter(e => e.userId !== user.userId);
-      this.$allUsers.next([...allUsers, e]);
+      this.$allUsers.next([...allUsers, e].sort((a, b) => a.nom!.localeCompare(b.nom!)));
       this.toastr.success('Modification enregistrée.', 'Mise à jour réussie !');
     }, err => {
       console.log(err);
     })
   }
 
-  public getCurrentUserStorage(){
+  public getCurrentUserStorage() {
     return JSON.parse(localStorage.getItem('currentUser')!) as UserDto;
   }
 
@@ -88,7 +89,6 @@ export class UserService {
   }
 
   public setCurrentUser(user: UserDto) {
-    console.log('test');
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.$currentUser.next(user);
   }
@@ -98,7 +98,7 @@ export class UserService {
     return this.$currentUser;
   }
 
-  public getUserById(id : number){
+  public getUserById(id: number) {
     return this.userApiService.getUserById(id);
   }
 

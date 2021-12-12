@@ -21,6 +21,7 @@ export class ListeUtilisateursComponent implements OnInit {
   public users: UserDto[] = [];
   public roles: RoleDto[] = [];
   public newUser: UserDto = {};
+  public currentUser: UserDto = {};
   invalidField: string[] = [];
   public isModalDisplayed: boolean = false;
   constructor(private userApiService: UserApiService,
@@ -40,11 +41,22 @@ export class ListeUtilisateursComponent implements OnInit {
     }, err => console.log(err))
 
     this.roleService.getRoles().subscribe(r => {
-      this.roles = r;
+
+      let roleUser = r.find(e => e.nom === "USER");
+      if (roleUser) {
+        roleUser.settable = true;
+        this.roles = [...r.filter(e => e.nom !== "USER"), roleUser]
+      } else {
+        this.roles = r;
+      }
     }, err => console.log(err))
 
     this.entrepriseService.getAllEntreprise().subscribe(e => {
       this.entreprises = e;
+    }, err => console.log(err))
+
+    this.userService.getCurrentUser().subscribe(e => {
+      this.currentUser = e;
     }, err => console.log(err))
 
 
@@ -55,7 +67,6 @@ export class ListeUtilisateursComponent implements OnInit {
   }
 
   updateUser(user: UserDto) {
-    //console.log(user);
     this.userService.updateUser(user);
   }
 
