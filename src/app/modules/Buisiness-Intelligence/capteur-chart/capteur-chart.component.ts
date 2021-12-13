@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from "@angular/core";
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { Capteur } from "src/app/models/Capteur";
@@ -21,7 +27,10 @@ export class CapteurChartComponent implements OnInit, OnDestroy {
   @ViewChildren(MatDatePickerComponent)
   datePickers!: QueryList<MatDatePickerComponent>;
 
-  constructor(private capteurValueService: CapteurValueService, private route: ActivatedRoute) {}
+  constructor(
+    private capteurValueService: CapteurValueService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     //this.startDate = this.capteurValueService.capteurHistories[0][0].dateReleve;
@@ -30,9 +39,12 @@ export class CapteurChartComponent implements OnInit, OnDestroy {
     this.loadData(this.machineId, this.capteurId);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.capteurValueService.chosenCapteurIds = [];
+  }
 
   loadData(machineId: number, capteurId: number) {
+    this.capteurValueService.capteurHistories = [];
     this.capteurValueService.loadCapteurHistory(machineId, capteurId);
     this.capteurValueService.getCapteursAvailable(machineId);
     this.subscribeAvailableCapteurs();
@@ -50,7 +62,9 @@ export class CapteurChartComponent implements OnInit, OnDestroy {
     this.availableCapteursSubscription =
       this.capteurValueService.availableCapteursSubject.subscribe(
         (value) => {
-          this.currentCapteur = value.filter((v) => v.capteurId == this.capteurId)[0];
+          this.currentCapteur = value.filter(
+            (v) => v.capteurId == this.capteurId
+          )[0];
           this.availableCapteurs = value.filter(
             (v) => v.capteurType == this.currentCapteur.capteurType
           );

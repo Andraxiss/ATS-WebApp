@@ -1,5 +1,12 @@
 <h1>{{ this.title }} {{ machineId }}</h1>
-<h2>{{ this.subTitle }} {{ capteurValues[0]?.dateReleve }}</h2>
+<h2>
+  {{ this.subTitle }}
+  {{
+    capteurValues[0].dateReleve.toString().split("T")[0] +
+      " " +
+      capteurValues[0].dateReleve.toString().split("T")[1]
+  }}
+</h2>
 <div class="lastCapteurValue">
   <div class="sub-lastCapteurValue">
     <h2>Temperatures</h2>
@@ -68,9 +75,7 @@
     <div *ngFor="let capteurValueBoolean of capteurValuesBoolean">
       <button
         [ngClass]="
-          capteurValueBoolean.capteurBooleanValue
-            ? 'btn-primary btn-true'
-            : ' btn-primary btn-false'
+          capteurValueBoolean.capteurBooleanValue ? 'btn-true' : 'btn-false'
         "
       >
         {{ capteurValueBoolean.capteur.capteurNom }} :

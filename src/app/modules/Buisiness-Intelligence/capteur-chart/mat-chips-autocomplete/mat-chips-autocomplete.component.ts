@@ -76,9 +76,11 @@ export class MatChipsAutocompleteComponent implements OnInit {
   remove(capteurName: string): void {
     const index = this.toBePrintedCapteurName.indexOf(capteurName);
 
-    if (index >= 0) {
+    if (index >= 0 && this.capteurValueService.chosenCapteurIds.length > 1) {
       this.toBePrintedCapteurName.splice(index, 1);
       this.removeCapteurFromChart(capteurName);
+    } else {
+      this.toastr.error("Il ne reste qu'un seul capteur");
     }
   }
 

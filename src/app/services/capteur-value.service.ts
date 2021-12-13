@@ -31,7 +31,7 @@ export class CapteurValueService {
     //Load data to be displayed on chart
     var params = new HttpParams();
     var today: Date = new Date();
-    if (!this.chosenCapteurIds.includes(capteurId)) {
+    if (!this.chosenCapteurIds.includes(+capteurId)) {
       this.chosenCapteurIds.push(+capteurId);
     }
     if (this.startDate.getDate() !== today.getDate()) {
@@ -74,11 +74,12 @@ export class CapteurValueService {
   onDateChange(machineId: number) {
     //Handle new chosen date by user
     this.resetCapteurHistory();
-    if (this.startDate !== new Date()) {
-      this.chosenCapteurIds.forEach((capteurId) => {
-        this.loadCapteurHistory(machineId, capteurId);
-      });
+    if (this.capteurHistories[0].length == 0) {
+      this.capteurHistories = [];
     }
+    this.chosenCapteurIds.forEach((capteurId) => {
+      this.loadCapteurHistory(machineId, capteurId);
+    });
   }
 
   emitCapteurValuesSubject() {
