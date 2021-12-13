@@ -57,6 +57,9 @@ export class CapteurValueService {
     );
     if (indexToRemoveCapteurHistories > -1) {
       this.capteurHistories.splice(indexToRemoveCapteurHistories, 1);
+      if (this.capteurHistories.length == 0) {
+        this.capteurHistories[0] = [];
+      }
       this.emitcapteurHistoriesSubject();
     }
   }
@@ -64,6 +67,8 @@ export class CapteurValueService {
   resetCapteurHistory() {
     //Reset all datas when chart is closed
     this.capteurHistories = [];
+    this.capteurHistories[0] = [];
+    this.emitcapteurHistoriesSubject();
   }
 
   onDateChange(machineId: number) {
@@ -101,10 +106,6 @@ export class CapteurValueService {
     } else {
       params = params.set("dateReleve", date);
     }
-    console.log(
-      "🚀 ~ file: capteur-value.service.ts ~ line 106 ~ CapteurValueService ~ getValueByDate ~ endPoint",
-      endPoint
-    );
 
     this.http.get<CapteurValue[]>(endPoint, { params: params }).subscribe(
       (value) => {

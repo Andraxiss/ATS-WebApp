@@ -86,6 +86,9 @@ export class MatChipsAutocompleteComponent implements OnInit {
     let capteurIdToPrint = this.availableCapteurs.filter(
       (v) => v.capteurNom === capteurName
     )[0].capteurId;
+    if (this.capteurValueService.capteurHistories[0].length == 0) {
+      this.capteurValueService.capteurHistories = [];
+    }
     this.capteurValueService.loadCapteurHistory(
       this.machineId,
       capteurIdToPrint

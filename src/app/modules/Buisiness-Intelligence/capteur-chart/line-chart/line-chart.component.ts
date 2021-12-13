@@ -35,7 +35,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
       this.capteurValueService.capteurHistoriesSubject.subscribe(
         (value) => {
           this.capteurHistories = value;
-          this.constructData();
+          if (this.capteurHistories[0].length !== 0) {
+            this.constructData();
+          } else {
+            this.datasets = [];
+            this.basicData = [];
+          }
         },
         (error) => {
           console.log("Error on capteurHistorySubscription ");

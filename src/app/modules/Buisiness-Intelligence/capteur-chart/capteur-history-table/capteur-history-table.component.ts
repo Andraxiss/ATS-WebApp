@@ -10,11 +10,13 @@ import { CapteurValueService } from "src/app/services/capteur-value.service";
 })
 export class CapteurHistoryTableComponent implements OnInit {
   products: String[] = [];
-  constructor(private capteurValueService: CapteurValueService) {}
-
   capteurHistorySubscription = new Subscription();
   capteurHistories: CapteurHistory[][] = [];
   capteursNom: String[] = [];
+
+  constructor(private capteurValueService: CapteurValueService) {
+    this.capteurHistories[0] = [];
+  }
 
   ngOnInit(): void {
     this.subscribeCapteurHistories();
@@ -33,11 +35,13 @@ export class CapteurHistoryTableComponent implements OnInit {
       this.capteurValueService.capteurHistoriesSubject.subscribe(
         (value) => {
           this.capteurHistories = value;
-          this.capteursNom = [];
-          this.capteursNom.push("Date de relevé");
-          this.capteurHistories.forEach((e) => {
-            this.capteursNom.push(e[0].capteurNom);
-          });
+          if (this.capteurHistories[0].length !== 0) {
+            this.capteursNom = [];
+            this.capteursNom.push("Date de relevé");
+            this.capteurHistories.forEach((e) => {
+              this.capteursNom.push(e[0].capteurNom);
+            });
+          }
         },
         (error) => {
           console.log("Error on capteurHistorySubscription in array ");
