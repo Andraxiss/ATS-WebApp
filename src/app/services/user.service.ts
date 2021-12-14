@@ -52,7 +52,7 @@ export class UserService {
 
   public createUser(user: UserDto) {
     if (this.isUserExisting(user)) {
-      this.toastr.error("Un utilisateur existe déjà avec cet adresse mail");
+      this.toastr.error("Un utilisateur existe déjà avec cette adresse mail");
     } else {
       this.userApiService.createUser(user).subscribe(
         (e) => {
